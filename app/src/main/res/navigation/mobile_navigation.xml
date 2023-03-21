@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nutrition_analysis_item">
+
+    <fragment
+        android:id="@+id/nutrition_analysis_item"
+        android:name="com.example.edamatest.ui.nutrition_analysis.NutritionAnalysisFragment"
+        android:label="@string/nutrition_analysis"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/recipe_search_item"
+        android:name="com.example.edamatest.ui.recipe_search.RecipeSearchFragment"
+        android:label="@string/recipe_search"
+        tools:layout="@layout/fragment_nutrition_analysis" />
+
+    <fragment
+        android:id="@+id/history_item"
+        android:name="com.example.edamatest.ui.history.HistoryFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_recipe_search" />
+</navigation>
