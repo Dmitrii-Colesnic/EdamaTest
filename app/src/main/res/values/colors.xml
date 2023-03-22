@@ -13,6 +13,7 @@
     On-primary container - is applied to content (icons, text, etc.) that sits on top of primary container
     <color name="blue_light_light">#E2F2FF</color>
 
+    <color name="error">#CA0909</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
