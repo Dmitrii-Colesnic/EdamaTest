@@ -32,8 +32,8 @@
                     android:id="@+id/textInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:maxLines="1"
-                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^*?"/>
+                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^*?"
+                    android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
