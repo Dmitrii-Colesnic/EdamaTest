@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edamatest.R
 import com.example.edamatest.databinding.EditTextLayoutBinding
 
-data class EditTextState(val id: Int, val input: String = "", var btnIsActive: Boolean = true)
+data class EditTextState(val id: Int, var input: String = "", var btnIsActive: Boolean = true)
 
 class AnalysisEditTextRecyclerViewAdapter(
-    private val deleteItemClickListener: () -> Unit,
-    private val addButtonVisibility: (visibility: Boolean) -> Unit,
+    private val deleteItemClickListener: (Int) -> Unit,
 ) : RecyclerView.Adapter<AnalysisEditTextRecyclerViewAdapter.ViewHolder>() {
 
     private lateinit var btn: FrameLayout
@@ -52,36 +51,13 @@ class AnalysisEditTextRecyclerViewAdapter(
         editText = holder.binding.textInputEditText
         btn = holder.binding.frameLayoutButton
 
-        if (item.btnIsActive) {
-            makeLayoutClickable(position = position, visibility = true)
-        } else {
-            makeLayoutClickable(position = position, visibility = false)
-        }
+        btn.setOnClickListener { deleteItemClickListener.invoke(position) }
+
+        editText.requestFocus()
 
         editText.addTextChangedListener {
-            addButtonVisibility.invoke(it.toString().isNotEmpty())
+            item.input = it.toString()
         }
 
-    }
-
-    private fun makeLayoutClickable(position: Int, visibility: Boolean) {
-        if (visibility) {
-            btn.apply {
-                background = ContextCompat.getDrawable(context, R.drawable.bg_red_circle_ripple)
-                isFocusable = true
-                isClickable = true
-                elevation = 15f
-                setOnClickListener {
-                    deleteItemClickListener.invoke()
-                }
-            }
-        } else {
-            btn.apply {
-                background = ContextCompat.getDrawable(context, R.drawable.bg_gray_circle)
-                isFocusable = false
-                isClickable = false
-                elevation = 0f
-            }
-        }
     }
 }

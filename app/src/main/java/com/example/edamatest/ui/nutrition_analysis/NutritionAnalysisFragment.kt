@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,8 +24,7 @@ class NutritionAnalysisFragment : Fragment() {
 
     private val adapter: AnalysisEditTextRecyclerViewAdapter by lazy(LazyThreadSafetyMode.PUBLICATION) {
         AnalysisEditTextRecyclerViewAdapter(
-            deleteItemClickListener = { viewModel.deleteItemClickEvent() },
-            addButtonVisibility = { addButtonClickability(it) }
+            deleteItemClickListener = { viewModel.deleteItemClickEvent(it) },
         )
     }
 
@@ -38,6 +38,7 @@ class NutritionAnalysisFragment : Fragment() {
         viewModel.listOfItems.observe(viewLifecycleOwner) { array ->
             adapter.differ.submitList(array)
         }
+
         binding.recyclerView.adapter = adapter
 
         binding.fabAdd.setOnClickListener {
@@ -47,31 +48,31 @@ class NutritionAnalysisFragment : Fragment() {
         return binding.root
     }
 
-    private fun addButtonClickability(clickability: Boolean) {
-        if (clickability) {
-            binding.fabAdd.apply {
-                backgroundTintList =
-                    ColorStateList.valueOf(
-                        ContextCompat.getColor(
-                            requireActivity(),
-                            R.color.yellow_dark_dark_custom
-                        )
-                    )
-                isClickable = true
-            }
-        } else {
-            binding.fabAdd.apply {
-                backgroundTintList =
-                    ColorStateList.valueOf(
-                        ContextCompat.getColor(
-                            requireActivity(),
-                            R.color.gray
-                        )
-                    )
-                isClickable = false
-            }
-        }
-    }
+//    private fun addButtonClickability(clickability: Boolean) {
+//        if (clickability) {
+//            binding.fabAdd.apply {
+//                backgroundTintList =
+//                    ColorStateList.valueOf(
+//                        ContextCompat.getColor(
+//                            requireActivity(),
+//                            R.color.yellow_dark_dark_custom
+//                        )
+//                    )
+//                isClickable = true
+//            }
+//        } else {
+//            binding.fabAdd.apply {
+//                backgroundTintList =
+//                    ColorStateList.valueOf(
+//                        ContextCompat.getColor(
+//                            requireActivity(),
+//                            R.color.gray
+//                        )
+//                    )
+//                isClickable = false
+//            }
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

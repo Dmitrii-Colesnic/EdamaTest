@@ -7,21 +7,17 @@ import java.text.FieldPosition
 
 class NutritionAnalysisViewModel : ViewModel() {
 
-    private var _listOfItems: MutableLiveData<ArrayList<EditTextState>> = MutableLiveData()
-    val listOfItems: LiveData<ArrayList<EditTextState>> get() = _listOfItems
+    private var _listOfItems: MutableLiveData<List<EditTextState>> = MutableLiveData(arrayListOf())
+    val listOfItems: LiveData<List<EditTextState>>  = _listOfItems
 
-    init {
-        _listOfItems.postValue(mutableListOf<EditTextState>() as ArrayList<EditTextState>?)
-    }
-
-    fun deleteItemClickEvent() {
-        val oldList = ArrayList(_listOfItems.value.orEmpty())
-        oldList.removeLast()
+    fun deleteItemClickEvent(position: Int) {
+        val oldList = _listOfItems.value.orEmpty().toMutableList()
+        oldList.removeAt(position)
         _listOfItems.value = oldList
     }
 
     fun addItemClickEvent() {
-        val oldList = ArrayList(_listOfItems.value.orEmpty())
+        val oldList = _listOfItems.value.orEmpty().toMutableList()
         oldList.apply {
             if (isNotEmpty())
                 last().btnIsActive = false
