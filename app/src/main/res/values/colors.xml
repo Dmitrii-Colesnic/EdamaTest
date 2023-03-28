@@ -2,10 +2,12 @@
 <resources>
     Primary - base color
     <color name="blue_dark">#28527A</color>
+    <color name="blue_dark_20">#3328527A</color>
 
     On-primary - is applied to content (icons, text, etc.) that sits on top of primary
     <color name="yellow_dark_dark">#835641</color>
     <color name="yellow_dark_dark_custom">#FC7400</color>
+    <color name="yellow_dark_dark_custom_50">#80FC7400</color>
 
     Primary container - is applied to elements needing less emphasis than primary
     <color name="blue">#2674BD</color>
