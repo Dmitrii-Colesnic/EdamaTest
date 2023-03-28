@@ -12,14 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edamatest.R
 import com.example.edamatest.databinding.EditTextLayoutBinding
 
-data class EditTextState(val id: Int, var input: String = "", var btnIsActive: Boolean = true)
+data class EditTextState(val id: Int, var input: String = "")
 
 class AnalysisEditTextRecyclerViewAdapter(
-    private val deleteItemClickListener: (Int) -> Unit,
+    private val deleteItemClickListener: (EditTextState) -> Unit,
 ) : RecyclerView.Adapter<AnalysisEditTextRecyclerViewAdapter.ViewHolder>() {
 
     private lateinit var btn: FrameLayout
     private lateinit var editText: EditText
+    private val emptyString: String = ""
 
     private val differCallback = object : DiffUtil.ItemCallback<EditTextState>() {
         override fun areItemsTheSame(oldItem: EditTextState, newItem: EditTextState): Boolean {
@@ -51,12 +52,16 @@ class AnalysisEditTextRecyclerViewAdapter(
         editText = holder.binding.textInputEditText
         btn = holder.binding.frameLayoutButton
 
-        btn.setOnClickListener { deleteItemClickListener.invoke(position) }
+        btn.setOnClickListener {
+            deleteItemClickListener.invoke(item)
+        }
 
-        editText.requestFocus()
-
-        editText.addTextChangedListener {
-            item.input = it.toString()
+        editText.apply {
+            addTextChangedListener {
+                item.input = it.toString()
+            }
+            setText(emptyString)
+            requestFocus()
         }
 
     }
