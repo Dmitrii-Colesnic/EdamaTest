@@ -10,27 +10,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edamatest.R
 import com.example.edamatest.databinding.ChipMacronutrientsBinding
 
-data class NutrientsModel(val id: Int, val name: String, val serverName: String, var range: String = "")
+data class NutrientsModel(
+    val id: Int,
+    val name: String,
+    val serverName: String,
+    var serverRange: String = ""
+)
 
 class NutrientsRecyclerViewAdapter(
-    private var list: List<NutrientsModel>,
-    private val onItemClick: (NutrientsModel) -> Unit,
+    private val onItemClick: (Int, String) -> Unit,
+    private val onItemClearClick: (Int) -> Unit,
 ) : RecyclerView.Adapter<NutrientsRecyclerViewAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ChipMacronutrientsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-//    private val differCallback = object : DiffUtil.ItemCallback<NutrientsModel>() {
-//        override fun areItemsTheSame(oldItem: NutrientsModel, newItem: NutrientsModel): Boolean {
-//            return oldItem.id == newItem.id
-//        }
-//
-//        override fun areContentsTheSame(oldItem: NutrientsModel, newItem: NutrientsModel): Boolean {
-//            return oldItem == newItem
-//        }
-//    }
-//
-//    val differ = AsyncListDiffer(this, differCallback)
+    private val differCallback = object : DiffUtil.ItemCallback<NutrientsModel>() {
+        override fun areItemsTheSame(oldItem: NutrientsModel, newItem: NutrientsModel): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: NutrientsModel, newItem: NutrientsModel): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -43,16 +48,17 @@ class NutrientsRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var item = list[position]
+        var item = differ.currentList[position]
 
         val ivMain = holder.binding.ivMain
         val tvMain = holder.binding.tvMain
         val tvRange = holder.binding.tvRange
+        val ivClear = holder.binding.ivClear
         val parentLayout = holder.binding.parentLayout
 
         tvMain.text = item.name
 
-        if (item.range.isNotEmpty()) {
+        if (item.serverRange.isNotEmpty()) {
             ivMain.setImageDrawable(
                 ContextCompat.getDrawable(
                     parentLayout.context,
@@ -60,7 +66,9 @@ class NutrientsRecyclerViewAdapter(
                 )
             )
             tvRange.visibility = View.VISIBLE
-            tvRange.text = item.range
+            tvRange.text = convertRangeToDisplayFormatEx(item.serverRange)
+
+            ivClear.visibility = View.VISIBLE
         } else {
             ivMain.setImageDrawable(
                 ContextCompat.getDrawable(
@@ -69,17 +77,14 @@ class NutrientsRecyclerViewAdapter(
                 )
             )
             tvRange.visibility = View.GONE
+            ivClear.visibility = View.GONE
         }
         tvMain.text = item.name
 
-        parentLayout.setOnClickListener { onItemClick.invoke(item) }
+        ivClear.setOnClickListener { onItemClearClick.invoke(position) }
+
+        parentLayout.setOnClickListener { onItemClick.invoke(position, item.serverRange) }
     }
 
-    fun setList(list: List<NutrientsModel>) {
-        this.list = list
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount(): Int = list.size
-
+    override fun getItemCount(): Int = differ.currentList.size
 }

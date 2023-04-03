@@ -1,21 +1,26 @@
 package com.example.edamatest.ui.recipe_search
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 class RecipeSearchViewModel : ViewModel() {
 
     private val _macronutrientsList = MutableStateFlow(macronutrientsList())
     val macronutrientsList: StateFlow<List<NutrientsModel>> = _macronutrientsList.asStateFlow()
 
-//    private val _macronutrientsList = MutableLiveData(macronutrientsList())
-//    val macronutrientsList: LiveData<List<NutrientsModel>> = _macronutrientsList
+    fun setMacronutrientsItemRange(itemPosition: Int, value: String) {
+        _macronutrientsList.update { previousList ->
+            val newList = previousList.toMutableList()
+            newList[itemPosition] = newList[itemPosition].copy(serverRange = value)
+            newList
+        }
+    }
 
-    fun changeMacronutrientsListElement(item: NutrientsModel, value: String) {
-        val newList = _macronutrientsList.value/*.orEmpty().toMutableList()*/
-        newList[item.id - 1].range = value
-        _macronutrientsList.update { newList }
+    fun clearMacronutrientsItemRange(itemPosition: Int) {
+        _macronutrientsList.update { previousList ->
+            val newList = previousList.toMutableList()
+            newList[itemPosition] = newList[itemPosition].copy(serverRange = "")
+            newList
+        }
     }
 }
