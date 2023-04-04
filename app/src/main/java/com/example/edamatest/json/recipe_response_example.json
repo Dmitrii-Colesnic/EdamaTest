@@ -14,7 +14,7 @@
         "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b79327d05b8e5b838ad6cfd9576b30b6",
         "label": "Chicken Vesuvio",
         "image": "https://edamam-product-images.s3.amazonaws.com/web-img/e42/e42f9119813e890af34c259785ae1cfb.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHQaCXVzLWVhc3QtMSJGMEQCIC2N7DTTiazEDrpV2A75E2YTtDt5YvkIqRZqKkn%2FelvbAiB4T7TNV3oCmYf%2B%2Bd9eVzFgG4S99W0ezq5m1uRVRf51ySq4BQgtEAAaDDE4NzAxNzE1MDk4NiIM24WOJwYiw%2BqwPNoUKpUF%2BgwuPafpXCAhsqhj9OUs0qcVfggvTaIXc94QorekswOOV5523ag8N173hSa6C16mGY%2B9hD95aJz%2FvgwENrQGPNrU5OcYD95huTKsgcY%2BBWDYoZ6EmnawBgwMO%2B8Gypwbe0FGma4Tv2O2Lg9kD2k39a8p6RtPun0NtQX8r%2BwUrPYqiaEL5vPjATora07OK9W40eHDJZ%2Fxt4Rcx8ltqHIaZHn%2FebN%2FweJNi2bGTpO%2FDQxKt%2B82naP%2Fy1KC%2BYoJFXB81OGTxuGfsPJyYW3ACtXKWmxTM0CIVoLpUutvVi260jIyIK8MazbCgYa3zwzGQIhNZ%2B8akyqXGx9vrT%2FtEhTlKtDqYb0DEyRXgFNmEYWxMBK6ugTqGzmCclRseYfUVJe8RVsodTpvIc%2FprF4Bo07IzS5v6vuMJPy3EABhvZ0ehBvfMnYkILjrm2hKVmAZF%2FP1ve21695sSLSbNDe9k6RHrd2FyAhsnC%2BEIQeFQBVPEup2PU7dw%2F0E0PydjspgkKDvsfvaGy44%2B%2BWo%2FmQKZ3Mz%2Bwx0y8QzdtuBOAeC0kaTPr0CyRJ0xIjBTyhifROkvXUWu8UhFx6QujjuLgmKj0icE1fEjQZkUWnfUNjaUwtTIuimKLJc6mhxJQsS94%2FAxVTUo4sPblrWFZXSPotfIqtLMhgBTTj9kALi9EUBRdM4e2uTmLBzy%2BDRZoemFPJVbdZuat3t%2FdN2gjJOCukmUnzoJY6gW6VXZRAWs7gleAPEONnxKq03c0Lf56PjhUJq7Qqf0Gd3wNfq7MTXtBPzVNb4x6YVgoJL5BzGEnQkIE5DvVscOG0wKwz3fGxgnFAIk%2FXJdIQKEfzmObz7O%2BcbD3%2FZqU3M7pTPCOngd1szLhScTynlIFe8%2BzC8v5ygBjqyAfWns4Y5em7jjycXzNETeMjm3nXKj7uZNM0eOWZQ9XWp7Oi4crxVK9XDd3lsi6hNk3a706%2Ff6BQKfWZBdZkCByGDj%2FwxVrr9fnIs11Ps2jBnU61e9ji4s4V4628QU4%2FabMWRJCy6xv7X%2B0%2FUhCh9cKlNK5sgFm%2BhHUwS9qkWRdYB9%2FupguX0S0dmGBlNY0XQxmZUC9BN8tWNaBE8ZHaxlV%2BBvZT1rJRBpiHJYS%2BTZ%2FNp%2FUo%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230307T121233Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFLVORGO4E%2F20230307%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=7eac51b85e9f05df29d578ba488ba6543f4e22024b1eb49c2f40c741c7bcf613",
-        "images": {
+        "--images": {
           "THUMBNAIL": {
             "url": "https://edamam-product-images.s3.amazonaws.com/web-img/e42/e42f9119813e890af34c259785ae1cfb-s.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHQaCXVzLWVhc3QtMSJGMEQCIC2N7DTTiazEDrpV2A75E2YTtDt5YvkIqRZqKkn%2FelvbAiB4T7TNV3oCmYf%2B%2Bd9eVzFgG4S99W0ezq5m1uRVRf51ySq4BQgtEAAaDDE4NzAxNzE1MDk4NiIM24WOJwYiw%2BqwPNoUKpUF%2BgwuPafpXCAhsqhj9OUs0qcVfggvTaIXc94QorekswOOV5523ag8N173hSa6C16mGY%2B9hD95aJz%2FvgwENrQGPNrU5OcYD95huTKsgcY%2BBWDYoZ6EmnawBgwMO%2B8Gypwbe0FGma4Tv2O2Lg9kD2k39a8p6RtPun0NtQX8r%2BwUrPYqiaEL5vPjATora07OK9W40eHDJZ%2Fxt4Rcx8ltqHIaZHn%2FebN%2FweJNi2bGTpO%2FDQxKt%2B82naP%2Fy1KC%2BYoJFXB81OGTxuGfsPJyYW3ACtXKWmxTM0CIVoLpUutvVi260jIyIK8MazbCgYa3zwzGQIhNZ%2B8akyqXGx9vrT%2FtEhTlKtDqYb0DEyRXgFNmEYWxMBK6ugTqGzmCclRseYfUVJe8RVsodTpvIc%2FprF4Bo07IzS5v6vuMJPy3EABhvZ0ehBvfMnYkILjrm2hKVmAZF%2FP1ve21695sSLSbNDe9k6RHrd2FyAhsnC%2BEIQeFQBVPEup2PU7dw%2F0E0PydjspgkKDvsfvaGy44%2B%2BWo%2FmQKZ3Mz%2Bwx0y8QzdtuBOAeC0kaTPr0CyRJ0xIjBTyhifROkvXUWu8UhFx6QujjuLgmKj0icE1fEjQZkUWnfUNjaUwtTIuimKLJc6mhxJQsS94%2FAxVTUo4sPblrWFZXSPotfIqtLMhgBTTj9kALi9EUBRdM4e2uTmLBzy%2BDRZoemFPJVbdZuat3t%2FdN2gjJOCukmUnzoJY6gW6VXZRAWs7gleAPEONnxKq03c0Lf56PjhUJq7Qqf0Gd3wNfq7MTXtBPzVNb4x6YVgoJL5BzGEnQkIE5DvVscOG0wKwz3fGxgnFAIk%2FXJdIQKEfzmObz7O%2BcbD3%2FZqU3M7pTPCOngd1szLhScTynlIFe8%2BzC8v5ygBjqyAfWns4Y5em7jjycXzNETeMjm3nXKj7uZNM0eOWZQ9XWp7Oi4crxVK9XDd3lsi6hNk3a706%2Ff6BQKfWZBdZkCByGDj%2FwxVrr9fnIs11Ps2jBnU61e9ji4s4V4628QU4%2FabMWRJCy6xv7X%2B0%2FUhCh9cKlNK5sgFm%2BhHUwS9qkWRdYB9%2FupguX0S0dmGBlNY0XQxmZUC9BN8tWNaBE8ZHaxlV%2BBvZT1rJRBpiHJYS%2BTZ%2FNp%2FUo%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230307T121233Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFLVORGO4E%2F20230307%2Fu 2023-03-07 14:12:08.750 9229-9253/com.example.edamamapp I/okhttp.OkHttpClient: s-east-1%2Fs3%2Faws4_request&X-Amz-Signature=8ec7beed6fc3a7098205b7d32607e74f107f2b7f525f17392569900c30e18bf5",
             "width": 100,
@@ -33,7 +33,7 @@
         },
         "source": "Serious Eats",
         "url": "http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html",
-        "shareAs": "http://www.edamam.com/recipe/chicken-vesuvio-b79327d05b8e5b838ad6cfd9576b30b6/chicken",
+        "--shareAs": "http://www.edamam.com/recipe/chicken-vesuvio-b79327d05b8e5b838ad6cfd9576b30b6/chicken",
         "yield": 4.0,
         "dietLabels": [
           "Low-Carb"
@@ -74,7 +74,7 @@
           "Salt and pepper",
           "1 cup frozen peas, thawed"
         ],
-        "ingredients": [
+        "--ingredients": [
           {
             "text": "1/2 cup olive oil",
             "quantity": 0.5,
@@ -354,7 +354,7 @@
             "quantity": 2.1590996812000003,
             "unit": "µg"
           },
-          "TOCPHA": {
+          "VITD": {
             "label": "Vitamin E",
             "quantity": 19.62869476856695,
             "unit": "mg"
@@ -375,7 +375,7 @@
             "unit": "g"
           }
         },
-        "totalDaily": {
+        "--totalDaily": {
           "ENERC_KCAL": {
             "label": "Energy",
             "quantity": 211.4021529100406,
@@ -502,7 +502,7 @@
             "unit": "%"
           }
         },
-        "digest": [
+        "--digest": [
           {
             "label": "Fat",
             "tag": "FAT",

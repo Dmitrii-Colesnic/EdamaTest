@@ -1,14 +1,18 @@
 package com.example.edamatest.ui.recipe_search
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.domain.recipe_search.GetRecipeUseCase
+import com.example.domain.recipe_search.models.RecipeResponseDomainModel
 import com.example.edamatest.ui.recipe_search.adapter.DietModel
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class RecipeSearchViewModel : ViewModel() {
+class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel() {
 
     private val _healthList = MutableStateFlow(healthList())
     val healthList: StateFlow<List<DietModel>> = _healthList.asStateFlow()
@@ -71,6 +75,10 @@ class RecipeSearchViewModel : ViewModel() {
     }
 
     fun collectData(keyword: String, caloriesMin: Int, caloriesMax: Int) {
+        viewModelScope.launch {
+            useCase.execute().collect {
 
+            }
+        }
     }
 }
