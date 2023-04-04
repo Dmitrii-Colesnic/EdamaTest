@@ -1,5 +1,8 @@
 package com.example.edamatest.ui.recipe_search
 
+import com.example.edamatest.ui.recipe_search.adapter.DietModel
+import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
+
 fun macronutrientsList(): List<NutrientsModel> {
     return listOf(
         NutrientsModel(name = "Fat",                serverName = "nutrients[FAT]"),

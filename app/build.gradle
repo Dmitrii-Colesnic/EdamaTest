@@ -42,6 +42,12 @@ dependencies {
     implementation project(path: ':data')
     /***************************************************/
 
+    //koin
+    def koin_version = "3.3.3"
+    implementation "io.insert-koin:koin-core:$koin_version"
+    //has addition functions for creating ViewModels
+    implementation "io.insert-koin:koin-android:$koin_version"
+
     // flexbox
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 

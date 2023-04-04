@@ -5,21 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.edamatest.databinding.FragmentRecipeSearchBinding
 import com.example.edamatest.ui.launchAndCollectWithLifecycle
+import com.example.edamatest.ui.recipe_search.adapter.DietsRecyclerViewAdapter
+import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
+import com.example.edamatest.ui.recipe_search.adapter.NutrientsRecyclerViewAdapter
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RecipeSearchFragment : Fragment() {
 
     private var _binding: FragmentRecipeSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: RecipeSearchViewModel by lazy {
-        ViewModelProvider(this)[RecipeSearchViewModel::class.java]
-    }
+    private val viewModel by viewModel<RecipeSearchViewModel>()
 
     private val macronutrientsRecyclerViewAdapter: NutrientsRecyclerViewAdapter by lazy {
         NutrientsRecyclerViewAdapter(
@@ -35,14 +36,13 @@ class RecipeSearchFragment : Fragment() {
         )
     }
 
-    private val healthRecyclerViewAdapter : DietsRecyclerViewAdapter by lazy {
+    private val healthRecyclerViewAdapter: DietsRecyclerViewAdapter by lazy {
         DietsRecyclerViewAdapter(
             onItemClick = this@RecipeSearchFragment::onItemClickHealth
         )
     }
 
-
-    private val dietRecyclerViewAdapter : DietsRecyclerViewAdapter by lazy {
+    private val dietRecyclerViewAdapter: DietsRecyclerViewAdapter by lazy {
         DietsRecyclerViewAdapter(
             onItemClick = this@RecipeSearchFragment::onItemClickDiet
         )
@@ -51,28 +51,28 @@ class RecipeSearchFragment : Fragment() {
     private val _layoutManagerMacro: FlexboxLayoutManager by lazy {
         FlexboxLayoutManager(context).apply {
             flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.CENTER
+            justifyContent = JustifyContent.FLEX_START
         }
     }
 
     private val _layoutManagerMicro: FlexboxLayoutManager by lazy {
         FlexboxLayoutManager(context).apply {
             flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.CENTER
+            justifyContent = JustifyContent.FLEX_START
         }
     }
 
     private val _layoutManagerHealth: FlexboxLayoutManager by lazy {
         FlexboxLayoutManager(context).apply {
             flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.CENTER
+            justifyContent = JustifyContent.FLEX_START
         }
     }
 
     private val _layoutManagerDiet: FlexboxLayoutManager by lazy {
         FlexboxLayoutManager(context).apply {
             flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.CENTER
+            justifyContent = JustifyContent.FLEX_START
         }
     }
 
@@ -113,7 +113,37 @@ class RecipeSearchFragment : Fragment() {
             micronutrientsRecyclerViewAdapter.differ.submitList(it)
         }
 
+        binding.btnApply.setOnClickListener {
+            val valueMin = try {
+                binding.editTextCalorieRangeMin.text.toString().toInt()
+            } catch (e: NumberFormatException) {
+                0
+            }
+            val valueMax = try {
+                binding.editTextCalorieRangeMax.text.toString().toInt()
+            } catch (e: NumberFormatException) {
+                0
+            }
+            if (binding.editTextKeyword.text.toString().isNotEmpty() &&
+                checkCaloriesField(valueMin, valueMax)
+            ) {
+                viewModel.collectData(
+                    keyword = binding.editTextKeyword.text.toString(),
+                    caloriesMin = valueMin,
+                    caloriesMax = valueMax,
+                )
+            }
+        }
+
         return binding.root
+    }
+
+    private fun checkCaloriesField(min: Int, max: Int): Boolean {
+        if (min >= max && max != 0) {
+            binding.textViewError.visibility = View.VISIBLE
+            return false
+        }
+        return true
     }
 
     private fun onItemClickHealth(itemPosition: Int, bool: Boolean) {

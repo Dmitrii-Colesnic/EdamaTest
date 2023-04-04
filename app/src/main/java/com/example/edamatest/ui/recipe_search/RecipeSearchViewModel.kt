@@ -1,6 +1,8 @@
 package com.example.edamatest.ui.recipe_search
 
 import androidx.lifecycle.ViewModel
+import com.example.edamatest.ui.recipe_search.adapter.DietModel
+import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -66,5 +68,9 @@ class RecipeSearchViewModel : ViewModel() {
             newList[itemPosition] = newList[itemPosition].copy(valueMin = 0, valueMax = 0)
             newList
         }
+    }
+
+    fun collectData(keyword: String, caloriesMin: Int, caloriesMax: Int) {
+
     }
 }

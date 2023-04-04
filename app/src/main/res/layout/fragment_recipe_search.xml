@@ -13,8 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingBottom="100dp">
+            android:paddingHorizontal="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -103,6 +102,17 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Unacceptable values"
+                android:textColor="@color/error"
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="match_parent"
@@ -195,6 +205,17 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 android:paddingTop="10dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_apply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:background="@color/yellow_dark_dark_custom"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
