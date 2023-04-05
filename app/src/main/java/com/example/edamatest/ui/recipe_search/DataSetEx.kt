@@ -81,5 +81,34 @@ fun healthList(): List<DietModel> {
         DietModel(name = "Soy-free"),
         DietModel(name = "Tree-Nut-free"),
         DietModel(name = "Wheat-free"),
+    )
+}
+    data class CuisineTypeModel (
+        val name: String,
+        var isChecked: Boolean = false,
+    )
+
+fun cuisineList(): List<CuisineTypeModel> {
+    return listOf(
+        CuisineTypeModel(name = "American"),
+        CuisineTypeModel(name = "Asian"),
+        CuisineTypeModel(name = "British"),
+        CuisineTypeModel(name = "Caribbean"),
+        CuisineTypeModel(name = "Central europe"),
+        CuisineTypeModel(name = "Chinese"),
+        CuisineTypeModel(name = "Eastern europe"),
+        CuisineTypeModel(name = "French"),
+        CuisineTypeModel(name = "Greek"),
+        CuisineTypeModel(name = "Indian"),
+        CuisineTypeModel(name = "Italian"),
+        CuisineTypeModel(name = "Japanese"),
+        CuisineTypeModel(name = "Korean"),
+        CuisineTypeModel(name = "Kosher"),
+        CuisineTypeModel(name = "Mediterranean"),
+        CuisineTypeModel(name = "Mexican"),
+        CuisineTypeModel(name = "Middle eastern"),
+        CuisineTypeModel(name = "Nordic"),
+        CuisineTypeModel(name = "South american"),
+        CuisineTypeModel(name = "South east asian"),
 )
 }

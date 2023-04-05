@@ -26,6 +26,9 @@ class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel()
     private val _micronutrientsList = MutableStateFlow(micronutrientsList())
     val micronutrientsList: StateFlow<List<NutrientsModel>> = _micronutrientsList.asStateFlow()
 
+    private val _cuisineTypeList = MutableStateFlow(cuisineList())
+    val cuisineTypeList: StateFlow<List<CuisineTypeModel>> = _cuisineTypeList.asStateFlow()
+
     fun changeHealthListItemStatus(itemPosition: Int, currentStatus: Boolean) {
         _healthList.update {previousList ->
             val newList = previousList.toMutableList()
@@ -76,7 +79,9 @@ class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel()
 
     fun collectData(keyword: String, caloriesMin: Int, caloriesMax: Int) {
         viewModelScope.launch {
-            useCase.execute().collect {
+            useCase.execute(
+
+            ).collect {
 
             }
         }
