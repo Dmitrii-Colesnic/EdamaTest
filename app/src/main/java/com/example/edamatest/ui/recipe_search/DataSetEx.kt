@@ -1,6 +1,6 @@
 package com.example.edamatest.ui.recipe_search
 
-import com.example.edamatest.ui.recipe_search.adapter.DietModel
+import com.example.edamatest.ui.recipe_search.adapter.CategoriesModel
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
 
 fun macronutrientsList(): List<NutrientsModel> {
@@ -40,47 +40,47 @@ fun micronutrientsList(): List<NutrientsModel> {
     )
 }
 
-fun dietList(): List<DietModel> {
+fun dietList(): List<CategoriesModel> {
     return listOf(
-        DietModel(name = "Balanced"),
-        DietModel(name = "High-Fiber"),
-        DietModel(name = "High-Protein"),
-        DietModel(name = "Low-Carb"),
-        DietModel(name = "Low-Fat"),
-        DietModel(name = "Low-Sodium"),
+        CategoriesModel(name = "Balanced"),
+        CategoriesModel(name = "High-Fiber"),
+        CategoriesModel(name = "High-Protein"),
+        CategoriesModel(name = "Low-Carb"),
+        CategoriesModel(name = "Low-Fat"),
+        CategoriesModel(name = "Low-Sodium"),
 )
 }
 
-fun healthList(): List<DietModel> {
+fun healthList(): List<CategoriesModel> {
     return listOf(
-        DietModel(name = "Alcohol-free"),
-        DietModel(name = "Keto "),
-        DietModel(name = "Kidney-friendly"),
-        DietModel(name = "Kosher"),
-        DietModel(name = "Low-potassium"),
-        DietModel(name = "No-oil-added"),
-        DietModel(name = "No-sugar"),
-        DietModel(name = "Paleo"),
-        DietModel(name = "Pescatarian"),
-        DietModel(name = "Pork-free"),
-        DietModel(name = "Red meat-free"),
-        DietModel(name = "Sugar-conscious"),
-        DietModel(name = "Vegan"),
-        DietModel(name = "Vegetarian"),
-        DietModel(name = "Celery-free"),
-        DietModel(name = "Crustacean-free"),
-        DietModel(name = "Dairy-free"),
-        DietModel(name = "Egg-free"),
-        DietModel(name = "Fish-free"),
-        DietModel(name = "Gluten-free"),
-        DietModel(name = "Lupine-free"),
-        DietModel(name = "Mustard-free"),
-        DietModel(name = "Peanut-free"),
-        DietModel(name = "Sesame-free"),
-        DietModel(name = "Shellfish-free"),
-        DietModel(name = "Soy-free"),
-        DietModel(name = "Tree-Nut-free"),
-        DietModel(name = "Wheat-free"),
+        CategoriesModel(name = "Alcohol-free"),
+        CategoriesModel(name = "Keto "),
+        CategoriesModel(name = "Kidney-friendly"),
+        CategoriesModel(name = "Kosher"),
+        CategoriesModel(name = "Low-potassium"),
+        CategoriesModel(name = "No-oil-added"),
+        CategoriesModel(name = "No-sugar"),
+        CategoriesModel(name = "Paleo"),
+        CategoriesModel(name = "Pescatarian"),
+        CategoriesModel(name = "Pork-free"),
+        CategoriesModel(name = "Red meat-free"),
+        CategoriesModel(name = "Sugar-conscious"),
+        CategoriesModel(name = "Vegan"),
+        CategoriesModel(name = "Vegetarian"),
+        CategoriesModel(name = "Celery-free"),
+        CategoriesModel(name = "Crustacean-free"),
+        CategoriesModel(name = "Dairy-free"),
+        CategoriesModel(name = "Egg-free"),
+        CategoriesModel(name = "Fish-free"),
+        CategoriesModel(name = "Gluten-free"),
+        CategoriesModel(name = "Lupine-free"),
+        CategoriesModel(name = "Mustard-free"),
+        CategoriesModel(name = "Peanut-free"),
+        CategoriesModel(name = "Sesame-free"),
+        CategoriesModel(name = "Shellfish-free"),
+        CategoriesModel(name = "Soy-free"),
+        CategoriesModel(name = "Tree-Nut-free"),
+        CategoriesModel(name = "Wheat-free"),
     )
 }
     data class CuisineTypeModel (
@@ -88,27 +88,27 @@ fun healthList(): List<DietModel> {
         var isChecked: Boolean = false,
     )
 
-fun cuisineList(): List<CuisineTypeModel> {
+fun cuisineList(): List<CategoriesModel> {
     return listOf(
-        CuisineTypeModel(name = "American"),
-        CuisineTypeModel(name = "Asian"),
-        CuisineTypeModel(name = "British"),
-        CuisineTypeModel(name = "Caribbean"),
-        CuisineTypeModel(name = "Central europe"),
-        CuisineTypeModel(name = "Chinese"),
-        CuisineTypeModel(name = "Eastern europe"),
-        CuisineTypeModel(name = "French"),
-        CuisineTypeModel(name = "Greek"),
-        CuisineTypeModel(name = "Indian"),
-        CuisineTypeModel(name = "Italian"),
-        CuisineTypeModel(name = "Japanese"),
-        CuisineTypeModel(name = "Korean"),
-        CuisineTypeModel(name = "Kosher"),
-        CuisineTypeModel(name = "Mediterranean"),
-        CuisineTypeModel(name = "Mexican"),
-        CuisineTypeModel(name = "Middle eastern"),
-        CuisineTypeModel(name = "Nordic"),
-        CuisineTypeModel(name = "South american"),
-        CuisineTypeModel(name = "South east asian"),
+        CategoriesModel(name = "American"),
+        CategoriesModel(name = "Asian"),
+        CategoriesModel(name = "British"),
+        CategoriesModel(name = "Caribbean"),
+        CategoriesModel(name = "Central europe"),
+        CategoriesModel(name = "Chinese"),
+        CategoriesModel(name = "Eastern europe"),
+        CategoriesModel(name = "French"),
+        CategoriesModel(name = "Greek"),
+        CategoriesModel(name = "Indian"),
+        CategoriesModel(name = "Italian"),
+        CategoriesModel(name = "Japanese"),
+        CategoriesModel(name = "Korean"),
+        CategoriesModel(name = "Kosher"),
+        CategoriesModel(name = "Mediterranean"),
+        CategoriesModel(name = "Mexican"),
+        CategoriesModel(name = "Middle eastern"),
+        CategoriesModel(name = "Nordic"),
+        CategoriesModel(name = "South american"),
+        CategoriesModel(name = "South east asian"),
 )
 }

@@ -3,22 +3,21 @@ package com.example.edamatest.ui.recipe_search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.recipe_search.GetRecipeUseCase
-import com.example.domain.recipe_search.models.RecipeResponseDomainModel
-import com.example.edamatest.ui.recipe_search.adapter.DietModel
+import com.example.edamatest.ui.recipe_search.adapter.CategoriesModel
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel() {
 
     private val _healthList = MutableStateFlow(healthList())
-    val healthList: StateFlow<List<DietModel>> = _healthList.asStateFlow()
+    val healthList: StateFlow<List<CategoriesModel>> = _healthList.asStateFlow()
 
     private val _dietList = MutableStateFlow(dietList())
-    val dietList: StateFlow<List<DietModel>> = _dietList.asStateFlow()
+    val dietList: StateFlow<List<CategoriesModel>> = _dietList.asStateFlow()
+
+    private val _cuisineTypeList = MutableStateFlow(cuisineList())
+    val cuisineTypeList: StateFlow<List<CategoriesModel>> = _cuisineTypeList.asStateFlow()
 
     private val _macronutrientsList = MutableStateFlow(macronutrientsList())
     val macronutrientsList: StateFlow<List<NutrientsModel>> = _macronutrientsList.asStateFlow()
@@ -26,11 +25,9 @@ class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel()
     private val _micronutrientsList = MutableStateFlow(micronutrientsList())
     val micronutrientsList: StateFlow<List<NutrientsModel>> = _micronutrientsList.asStateFlow()
 
-    private val _cuisineTypeList = MutableStateFlow(cuisineList())
-    val cuisineTypeList: StateFlow<List<CuisineTypeModel>> = _cuisineTypeList.asStateFlow()
 
     fun changeHealthListItemStatus(itemPosition: Int, currentStatus: Boolean) {
-        _healthList.update {previousList ->
+        _healthList.update { previousList ->
             val newList = previousList.toMutableList()
             newList[itemPosition] = newList[itemPosition].copy(isChecked = !currentStatus)
             newList
@@ -38,7 +35,7 @@ class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel()
     }
 
     fun changeDietListItemStatus(itemPosition: Int, currentStatus: Boolean) {
-        _dietList.update {previousList ->
+        _dietList.update { previousList ->
             val newList = previousList.toMutableList()
             newList[itemPosition] = newList[itemPosition].copy(isChecked = !currentStatus)
             newList
@@ -78,12 +75,27 @@ class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel()
     }
 
     fun collectData(keyword: String, caloriesMin: Int, caloriesMax: Int) {
-        viewModelScope.launch {
-            useCase.execute(
 
-            ).collect {
+
+        useCase.execute(
+            keyWord = keyword,
+            calories = toServerFormatRange(caloriesMin, caloriesMax),
+            diet = _dietList.value.getSelected(),
+            health =,
+            cuisineType =,
+            nutrients =,
+        )
+            .onEach {
 
             }
-        }
+            .launchIn(viewModelScope)
+    }
+}
+
+private fun List<CategoriesModel>.getSelected() : List<String> = this.mapNotNull {
+    if (it.isChecked) {
+        it.name
+    } else {
+        null
     }
 }

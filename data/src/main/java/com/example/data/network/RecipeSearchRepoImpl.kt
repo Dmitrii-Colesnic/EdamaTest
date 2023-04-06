@@ -1,11 +1,14 @@
 package com.example.data.network
 
+import com.example.data.network.model.RecipeResponseDataModel
 import com.example.domain.recipe_search.RecipeSearchRepo
 import com.example.domain.recipe_search.models.Recipe
 import com.example.domain.recipe_search.models.RecipeResponseDomainModel
 import com.example.domain.recipe_search.models.SubLink
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
 class RecipeSearchRepoImpl(private val service: EdamamService) : RecipeSearchRepo {
     override suspend fun getRecipe(
@@ -16,76 +19,24 @@ class RecipeSearchRepoImpl(private val service: EdamamService) : RecipeSearchRep
         diet: List<String>,
         health: List<String>,
         cuisineType: List<String>,
-        nutrients_fat: String,
-        fasat_nutrients: String,
-        fatrn_nutrients: String,
-        fams_nutrients: String,
-        fapu_nutrients: String,
-        chocdf_nutrients: String,
-        fibtg_nutrients: String,
-        sugar_nutrients: String,
-        procnt_nutrients: String,
-        chole_nutrients: String,
-        na_nutrients: String,
-        ca_nutrients: String,
-        mg_nutrients: String,
-        k_nutrients: String,
-        fe_nutrients: String,
-        p_nutrients: String,
-        vita_rae_nutrients: String,
-        vitc_nutrients: String,
-        thia_nutrients: String,
-        ribf_nutrients: String,
-        nia_nutrients: String,
-        vitb6a_nutrients: String,
-        foldfe_nutrients: String,
-        vitb12_nutrients: String,
-        vitd_nutrients: String,
-        tocpha_nutrients: String,
-        vitkq_nutrients: String
-    ): Flow<RecipeResponseDomainModel?> {
-        return flow {
-            emit(
-                service.recipeSearchQuery(
-                    appId,
-                    appKey,
-                    keyWord,
-                    calories,
-                    diet,
-                    health,
-                    cuisineType,
-                    nutrients_fat,
-                    fasat_nutrients,
-                    fatrn_nutrients,
-                    fams_nutrients,
-                    fapu_nutrients,
-                    chocdf_nutrients,
-                    fibtg_nutrients,
-                    sugar_nutrients,
-                    procnt_nutrients,
-                    chole_nutrients,
-                    na_nutrients,
-                    ca_nutrients,
-                    mg_nutrients,
-                    k_nutrients,
-                    fe_nutrients,
-                    p_nutrients,
-                    vita_rae_nutrients,
-                    vitc_nutrients,
-                    thia_nutrients,
-                    ribf_nutrients,
-                    nia_nutrients,
-                    vitb6a_nutrients,
-                    foldfe_nutrients,
-                    vitb12_nutrients,
-                    vitd_nutrients,
-                    tocpha_nutrients,
-                    vitkq_nutrients
+        nutrients: Map<String, String>
+    ): Result<Responses> =  withContext(Dispatchers.IO) try {
+        val response = service.recipeSearchQuery(
+                    appId = appId,
+                    appKey = appKey,
+                    keyWord = keyWord,
+                    calories = calories,
+                    diet = diet,
+                    health = health,
+                    cuisineType = cuisineType,
+                    nutrients = nutrients
                 ).body()?.toDomainModel()
-            )
-        }
+
+    } catch (e: Exception) {
+
     }
 }
+
 
 private fun RecipeResponseDataModel.toDomainModel() = RecipeResponseDomainModel(
     from = this.from,
@@ -171,3 +122,59 @@ private fun RecipeResponseDataModel.toDomainModel() = RecipeResponseDomainModel(
         )
     )
 )
+
+//nutrients_fat: String,
+//fasat_nutrients: String,
+//fatrn_nutrients: String,
+//fams_nutrients: String,
+//fapu_nutrients: String,
+//chocdf_nutrients: String,
+//fibtg_nutrients: String,
+//sugar_nutrients: String,
+//procnt_nutrients: String,
+//chole_nutrients: String,
+//na_nutrients: String,
+//ca_nutrients: String,
+//mg_nutrients: String,
+//k_nutrients: String,
+//fe_nutrients: String,
+//p_nutrients: String,
+//vita_rae_nutrients: String,
+//vitc_nutrients: String,
+//thia_nutrients: String,
+//ribf_nutrients: String,
+//nia_nutrients: String,
+//vitb6a_nutrients: String,
+//foldfe_nutrients: String,
+//vitb12_nutrients: String,
+//vitd_nutrients: String,
+//tocpha_nutrients: String,
+//vitkq_nutrients: String
+
+//nutrients_fat,
+//fasat_nutrients,
+//fatrn_nutrients,
+//fams_nutrients,
+//fapu_nutrients,
+//chocdf_nutrients,
+//fibtg_nutrients,
+//sugar_nutrients,
+//procnt_nutrients,
+//chole_nutrients,
+//na_nutrients,
+//ca_nutrients,
+//mg_nutrients,
+//k_nutrients,
+//fe_nutrients,
+//p_nutrients,
+//vita_rae_nutrients,
+//vitc_nutrients,
+//thia_nutrients,
+//ribf_nutrients,
+//nia_nutrients,
+//vitb6a_nutrients,
+//foldfe_nutrients,
+//vitb12_nutrients,
+//vitd_nutrients,
+//tocpha_nutrients,
+//vitkq_nutrients
