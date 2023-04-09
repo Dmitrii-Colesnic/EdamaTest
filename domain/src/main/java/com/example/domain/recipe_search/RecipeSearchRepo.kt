@@ -1,7 +1,6 @@
 package com.example.domain.recipe_search
 
 import com.example.domain.recipe_search.models.RecipeResponseDomainModel
-import kotlinx.coroutines.flow.Flow
 
 interface RecipeSearchRepo {
     suspend fun getRecipe(
@@ -13,9 +12,14 @@ interface RecipeSearchRepo {
         health: List<String>,
         cuisineType: List<String>,
         nutrients: Map<String, String>
-    ): Flow<RecipeResponseDomainModel?>
+    ): RecipeSearchResponse<RecipeResponseDomainModel>
 }
 
+sealed interface RecipeSearchResponse<T : Any>
+
+class RecipeSearchResponseSuccess<T : Any>(val data: T) : RecipeSearchResponse<T>
+class RecipeSearchResponseError<T : Any>(val code: Int, val message: String?) : RecipeSearchResponse<T>
+class RecipeSearchResponseException<T : Any>(val e: Throwable) : RecipeSearchResponse<T>
 
 //nutrients_fat: String,
 //fasat_nutrients: String,
