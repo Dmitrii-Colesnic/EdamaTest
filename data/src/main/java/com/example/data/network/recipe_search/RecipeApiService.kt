@@ -24,7 +24,7 @@ interface RecipeApiService {
 
 }
 
-class RecipeApiRemoteSource(private val service: RecipeApiService) {
+class RecipeApiRemoteSource(private val recipeApiService: RecipeApiService) {
     suspend operator fun invoke(
         appId: String,
         appKey: String,
@@ -35,7 +35,7 @@ class RecipeApiRemoteSource(private val service: RecipeApiService) {
         cuisineType: List<String>,
         nutrients: Map<String, String>
     ): ApiResponse<RecipeResponseDataModel> = handleApi {
-            service.recipeSearchQuery(
+            recipeApiService.recipeSearchQuery(
                 appId = appId,
                 appKey = appKey,
                 keyWord = keyWord,

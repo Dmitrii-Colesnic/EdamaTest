@@ -124,9 +124,7 @@ class RecipeSearchFragment : Fragment() {
             } catch (e: NumberFormatException) {
                 0
             }
-            if (binding.editTextKeyword.text.toString().isNotEmpty() &&
-                checkCaloriesField(valueMin, valueMax)
-            ) {
+            if (editTextKeywordIsNotEmpty() && checkCaloriesField(valueMin, valueMax)) {
                 viewModel.collectData(
                     keyword = binding.editTextKeyword.text.toString(),
                     caloriesMin = valueMin,
@@ -140,7 +138,15 @@ class RecipeSearchFragment : Fragment() {
 
     private fun checkCaloriesField(min: Int, max: Int): Boolean {
         if (min >= max && max != 0) {
-            binding.textViewError.visibility = View.VISIBLE
+            binding.tvCaloriesFieldError.visibility = View.VISIBLE
+            return false
+        }
+        return true
+    }
+
+    private fun editTextKeywordIsNotEmpty(): Boolean {
+        if (binding.editTextKeyword.text.toString().isEmpty()) {
+            binding.tvKeywordError.visibility = View.VISIBLE
             return false
         }
         return true

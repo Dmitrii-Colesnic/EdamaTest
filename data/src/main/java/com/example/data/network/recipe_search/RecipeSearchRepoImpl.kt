@@ -7,7 +7,7 @@ import com.example.data.network.recipe_search.model.RecipeResponseDataModel
 import com.example.domain.recipe_search.*
 import com.example.domain.recipe_search.models.*
 
-class RecipeSearchRepoImpl(private val remoteSource: RecipeApiRemoteSource) : RecipeSearchRepo {
+class RecipeSearchRepoImpl(private val recipeApiRemoteSource: RecipeApiRemoteSource) : RecipeSearchRepo {
     override suspend fun getRecipe(
         appId: String,
         appKey: String,
@@ -19,7 +19,7 @@ class RecipeSearchRepoImpl(private val remoteSource: RecipeApiRemoteSource) : Re
         nutrients: Map<String, String>
     ): RecipeSearchResponse<RecipeResponseDomainModel> {
         return try {
-            val response = remoteSource.invoke(
+            val response = recipeApiRemoteSource.invoke(
                 appId = appId,
                 appKey = appKey,
                 keyWord = keyWord,

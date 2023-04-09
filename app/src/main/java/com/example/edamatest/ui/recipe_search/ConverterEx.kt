@@ -1,5 +1,7 @@
 package com.example.edamatest.ui.recipe_search
 
+import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
+
 fun toDisplayFormatRange(valueMin: Int, valueMax: Int): String {
     if (valueMin != 0 && valueMax != 0) {
         return "($valueMin - $valueMax)"
@@ -11,13 +13,31 @@ fun toDisplayFormatRange(valueMin: Int, valueMax: Int): String {
     return ""
 }
 
-fun toServerFormatRange(valueMin: Int, valueMax: Int): String {
-    if (valueMin != 0 && valueMax != 0) {
-        return "$valueMin-$valueMax"
+fun NutrientsModel.toServerFormatRange(): String {
+    return if (valueMin != 0 && valueMax != 0) {
+        "$valueMin-$valueMax"
     } else if (valueMin != 0) {
-        return "$valueMax+"
+        "$valueMax+"
     } else if (valueMax != 0) {
-        return valueMax.toString()
+        valueMax.toString()
+    } else {
+        ""
     }
-    return ""
+}
+
+fun NutrientsModel.nutrientsToServerFormatRange(): String {
+    var range = ""
+    if (valueMin != 0 && valueMax != 0) {
+        range = "$valueMin-$valueMax"
+    } else if (valueMin != 0) {
+        range = "$valueMax+"
+    } else if (valueMax != 0) {
+        range = valueMax.toString()
+    }
+
+    return if (range.isNotEmpty()) {
+        "$serverName=$range"
+    } else {
+        ""
+    }
 }

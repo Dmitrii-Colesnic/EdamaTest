@@ -1,7 +1,11 @@
 package com.example.edamatest
 
 import android.app.Application
-import com.example.edamatest.di.appModule
+import com.example.edamatest.di.RetrofitModule
+import com.example.edamatest.di.apiModule
+import com.example.edamatest.di.recipe_search.appRecipeSearchModule
+import com.example.edamatest.di.recipe_search.dataRecipeSearchModule
+import com.example.edamatest.di.recipe_search.domainRecipeSearchModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -15,7 +19,12 @@ class App : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules(listOf(appModule))
+            modules(
+                listOf(
+                    apiModule, RetrofitModule,
+                    appRecipeSearchModule, domainRecipeSearchModule, dataRecipeSearchModule
+                )
+            )
         }
     }
 

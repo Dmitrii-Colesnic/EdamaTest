@@ -40,6 +40,17 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/tv_keywordError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="The field can't be empty"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:textColor="@color/error"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -74,7 +85,7 @@
                         android:id="@+id/editText_calorie_range_min"
                         android:layout_width="100dp"
                         android:layout_height="50dp"
-                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^*?"
+                        android:inputType="number"
                         android:maxLines="1" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +107,7 @@
                         android:id="@+id/editText_calorie_range_max"
                         android:layout_width="100dp"
                         android:layout_height="50dp"
-                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^*?"
+                        android:inputType="number"
                         android:maxLines="1" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -104,7 +115,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textViewError"
+                android:id="@+id/tv_caloriesFieldError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

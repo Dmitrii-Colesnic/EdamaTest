@@ -5,10 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.recipe_search.GetRecipeUseCase
 import com.example.edamatest.ui.recipe_search.adapter.CategoriesModel
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel() {
+class RecipeSearchViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewModel() {
 
     private val _healthList = MutableStateFlow(healthList())
     val healthList: StateFlow<List<CategoriesModel>> = _healthList.asStateFlow()
@@ -76,23 +77,51 @@ class RecipeSearchViewModel(private val useCase: GetRecipeUseCase) : ViewModel()
 
     fun collectData(keyword: String, caloriesMin: Int, caloriesMax: Int) {
 
-
-        useCase.execute(
-            keyWord = keyword,
-            calories = toServerFormatRange(caloriesMin, caloriesMax),
-            diet = _dietList.value.getSelected(),
-            health =,
-            cuisineType =,
-            nutrients =,
+        val caloriesName = "calories"
+        val caloriesItem = NutrientsModel(
+            name = caloriesName,
+            serverName = caloriesName,
+            valueMin = caloriesMin,
+            valueMax = caloriesMax
         )
-            .onEach {
 
+        viewModelScope.launch(Dispatchers.IO) {
+            recipeUseCase.execute(
+                keyWord = keyword,
+                calories = caloriesItem.toServerFormatRange(),
+                diet = _dietList.value.getSelected(),
+                health = _healthList.value.getSelected(),
+                cuisineType = _cuisineTypeList.value.getSelected(),
+                nutrients = getNutrients(),
+            )
+        }
+
+    }
+
+    private fun getNutrients(): Map<String, String> {
+        val nutrientsMap = mutableMapOf<String, String>()
+
+        for (item in _macronutrientsList.value) {
+            item.nutrientsToServerFormatRange().let {
+                if (it.isNotEmpty()) {
+                    nutrientsMap[item.serverName] = it
+                }
             }
-            .launchIn(viewModelScope)
+        }
+
+        for (item in _micronutrientsList.value) {
+            item.nutrientsToServerFormatRange().let {
+                if (it.isNotEmpty()) {
+                    nutrientsMap[item.serverName] = it
+                }
+            }
+        }
+
+        return nutrientsMap
     }
 }
 
-private fun List<CategoriesModel>.getSelected() : List<String> = this.mapNotNull {
+private fun List<CategoriesModel>.getSelected(): List<String> = this.mapNotNull {
     if (it.isChecked) {
         it.name
     } else {

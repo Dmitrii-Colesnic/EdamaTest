@@ -83,10 +83,6 @@ fun healthList(): List<CategoriesModel> {
         CategoriesModel(name = "Wheat-free"),
     )
 }
-    data class CuisineTypeModel (
-        val name: String,
-        var isChecked: Boolean = false,
-    )
 
 fun cuisineList(): List<CategoriesModel> {
     return listOf(

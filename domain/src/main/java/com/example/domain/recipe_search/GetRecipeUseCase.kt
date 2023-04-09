@@ -5,7 +5,7 @@ import com.example.domain.recipe_search.models.RecipeResponseDomainModel
 private const val APPLICATION_ID = "0bcdf660"
 private const val APPLICATION_KEYS = "618dae8b1a1226242ff8db8677dd5d50"
 
-class GetRecipeUseCase(private val repo: RecipeSearchRepo) {
+class GetRecipeUseCase(private val recipeSearchRepo: RecipeSearchRepo) {
     suspend fun execute(
         keyWord: String,
         calories: String,
@@ -14,7 +14,7 @@ class GetRecipeUseCase(private val repo: RecipeSearchRepo) {
         cuisineType: List<String> = emptyList(),
         nutrients: Map<String, String> = emptyMap()
     ): RecipeSearchResponse<RecipeResponseDomainModel> {
-        return repo.getRecipe(
+        return recipeSearchRepo.getRecipe(
             appId = APPLICATION_ID,
             appKey = APPLICATION_KEYS,
             keyWord = keyWord,

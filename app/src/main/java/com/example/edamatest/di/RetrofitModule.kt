@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit
 private const val CONNECT_TIMEOUT = 15L
 private const val WRITE_TIMEOUT = 15L
 private const val READ_TIMEOUT = 15L
+
 val RetrofitModule = module {
     single { Cache(androidApplication().cacheDir, 10L * 1024 * 1024) }
     single { GsonBuilder().create() }
@@ -39,7 +40,6 @@ private fun Scope.retrofitBuilder(): Retrofit {
         .build()
 }
 
-
 private fun Scope.retrofitHttpClient(): OkHttpClient {
     return OkHttpClient.Builder().apply {
         cache(get())
@@ -51,8 +51,7 @@ private fun Scope.retrofitHttpClient(): OkHttpClient {
         addInterceptor(HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor.Level.BODY
-            }
-            else {
+            } else {
                 HttpLoggingInterceptor.Level.NONE
             }
         })
