@@ -16,6 +16,7 @@
     <color name="blue_light_light">#E2F2FF</color>
 
     <color name="gray">#878888</color>
+    <color name="gray_dark">#474747</color>
 
     <color name="error">#CA0909</color>
     <color name="error_ripple">#A10808</color>

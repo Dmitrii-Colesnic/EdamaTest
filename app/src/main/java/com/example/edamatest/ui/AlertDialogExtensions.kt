@@ -1,4 +1,4 @@
-package com.example.edamatest
+package com.example.edamatest.ui
 
 import android.app.AlertDialog
 import android.content.Context
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.edamatest.R
 
 fun Context.showSuccessAlertDialog(message: String?) {
     val builder = AlertDialog.Builder(this)

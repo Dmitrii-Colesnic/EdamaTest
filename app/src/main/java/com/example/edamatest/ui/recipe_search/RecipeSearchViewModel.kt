@@ -1,30 +1,20 @@
 package com.example.edamatest.ui.recipe_search
 
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.data.network.ResponseError
-import com.example.data.network.ResponseException
-import com.example.data.network.ResponseSuccess
-import com.example.domain.recipe_search.GetRecipeUseCase
-import com.example.domain.recipe_search.RecipeSearchResponseError
-import com.example.domain.recipe_search.RecipeSearchResponseException
-import com.example.domain.recipe_search.RecipeSearchResponseSuccess
 import com.example.edamatest.ui.recipe_search.adapter.CategoriesModel
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import com.example.edamatest.ui.recipe_search.result_flow.RequestModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
-class RecipeSearchViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewModel() {
+class RecipeSearchViewModel : ViewModel() {
 
-//    private var _keyWord = MutableStateFlow("")
-//    val keyWord: StateFlow<String> = _keyWord.asStateFlow()
+    private var _keyWord = MutableStateFlow("")
 
     private var _calories =
         MutableStateFlow(NutrientsModel(name = "calories", serverName = "calories"))
-    val caloriesMax: StateFlow<NutrientsModel> = _calories.asStateFlow()
 
     private val _healthList = MutableStateFlow(healthList())
     val healthList: StateFlow<List<CategoriesModel>> = _healthList.asStateFlow()
@@ -90,26 +80,39 @@ class RecipeSearchViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewM
         }
     }
 
-    fun collectData(keyword: String) {
-        viewModelScope.launch() {
-            val response = recipeUseCase.execute(
-                keyWord = keyword,
-                diet = _dietList.value.getSelected(),
-                health = _healthList.value.getSelected(),
-                cuisineType = _cuisineTypeList.value.getSelected(),
-                nutrients = getNutrients(),
-            )
-
-            when (response) {
-                is RecipeSearchResponseSuccess -> Log.d("okhttp", "ResponseSuccess")
-                is RecipeSearchResponseError -> Log.d("okhttp", "ResponseError")
-                is RecipeSearchResponseException -> {
-                    Log.d("okhttp", "ResponseException - ${response.e.message}")
-                }
-            }
-
-        }
+    fun  getCollectedData() : RequestModel {
+        return RequestModel(
+            keyWord = _keyWord.value,
+            diet = _dietList.value.getSelected(),
+            health = _healthList.value.getSelected(),
+            cuisineType = _cuisineTypeList.value.getSelected(),
+            nutrients = getNutrients(),
+        )
     }
+
+//            viewModelScope.launch() {
+//                val response = recipeUseCase.execute(
+//                    keyWord = keyword,
+//                    diet = _dietList.value.getSelected(),
+//                    health = _healthList.value.getSelected(),
+//                    cuisineType = _cuisineTypeList.value.getSelected(),
+//                    nutrients = getNutrients(),
+//                )
+//
+//                when (response) {
+//                    is RecipeSearchResponseSuccess -> {
+//                        Log.d("okhttp", "ResponseSuccess")
+//                    }
+//                    is RecipeSearchResponseError -> {
+//                        Log.d("okhttp", "ResponseError")
+//                    }
+//                    is RecipeSearchResponseException -> {
+//                        Log.d("okhttp", "ResponseException - ${response.e.message}")
+//                    }
+//                }
+//
+//            }
+
 
     private fun getNutrients(): Map<String, String> {
         val nutrientsMap = mutableMapOf<String, String>()
@@ -141,20 +144,24 @@ class RecipeSearchViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewM
         return nutrientsMap
     }
 
-    fun setCaloriesMin(min: Int) {
+//    fun setCaloriesMin(min: Int = 0) {
+//        _calories.value.valueMin = min
+//    }
+    fun setCalories(min: Int = 0, max: Int = 0) {
         _calories.value.valueMin = min
+        _calories.value.valueMax = max
     }
 
-    fun setCaloriesMax(max: Int) {
-        _calories.value.valueMax = max
-        {}
+    fun setKeyWord(string: String) {
+        _keyWord.value = string
     }
+
 }
 
-    private fun List<CategoriesModel>.getSelected(): List<String> = this.mapNotNull {
-        if (it.isChecked) {
-            it.name
-        } else {
-            null
-        }
+private fun List<CategoriesModel>.getSelected(): List<String> = this.mapNotNull {
+    if (it.isChecked) {
+        it.name
+    } else {
+        null
     }
+}

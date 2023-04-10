@@ -11,13 +11,6 @@ import com.example.edamatest.R
 import com.example.edamatest.databinding.ChipMacronutrientsBinding
 import com.example.edamatest.ui.recipe_search.toDisplayFormatRange
 
-data class NutrientsModel(
-    val name: String,
-    val serverName: String,
-    var valueMin: Int = 0,
-    var valueMax: Int = 0,
-)
-
 class NutrientsRecyclerViewAdapter(
     private val onItemClick: (Int, NutrientsModel) -> Unit,
     private val onItemClearClick: (Int) -> Unit,

@@ -52,6 +52,7 @@ class RecipeSearchRepoImpl(private val recipeApiRemoteSource: RecipeApiRemoteSou
                 }
             }
         } catch (e: Throwable) {
+            Log.d("okhttp", "Mapping Exception - ${e.message}")
             RecipeSearchResponseException(e = e)
         }
     }
@@ -67,7 +68,6 @@ private fun RecipeResponseDataModel.toDomainModel() = RecipeResponseDomainModel(
 )
 
 fun com.example.data.network.recipe_search.model.Links.toDomain() = Links(
-    self = self.toDomain(),
     next = next.toDomain()
 )
 
@@ -102,6 +102,7 @@ fun com.example.data.network.recipe_search.model.TotalNutrients.toDomain() =
     com.example.domain.recipe_search.models.TotalNutrients(
         FAT = FAT.toDomain(),
         SUGAR = SUGAR.toDomain(),
+        CHOCDF = CHOCDF.toDomain(),
         PROCNT = PROCNT.toDomain(),
         CHOLE = CHOLE.toDomain(),
         NA = NA.toDomain(),
@@ -109,7 +110,6 @@ fun com.example.data.network.recipe_search.model.TotalNutrients.toDomain() =
         MG = MG.toDomain(),
         K = K.toDomain(),
         FE = FE.toDomain(),
-        ZN = ZN.toDomain(),
     )
 
 fun Nutrient.toDomain() = com.example.domain.recipe_search.models.Nutrient(

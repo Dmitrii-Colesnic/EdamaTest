@@ -9,11 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edamatest.R
 import com.example.edamatest.databinding.ChipMacronutrientsBinding
 
-data class CategoriesModel(
-    val name: String,
-    var isChecked: Boolean = false,
-)
-
 class DietsRecyclerViewAdapter(val onItemClick: (Int, Boolean) -> Unit) : RecyclerView.Adapter<DietsRecyclerViewAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ChipMacronutrientsBinding) :
         RecyclerView.ViewHolder(binding.root)

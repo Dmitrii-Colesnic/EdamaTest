@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.edamatest.databinding.FragmentRecipeSearchBinding
+import com.example.edamatest.openActivity
 import com.example.edamatest.ui.launchAndCollectWithLifecycle
 import com.example.edamatest.ui.recipe_search.adapter.DietsRecyclerViewAdapter
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsRecyclerViewAdapter
+import com.example.edamatest.ui.recipe_search.result_flow.RecipeSearchResultActivity
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -114,26 +116,36 @@ class RecipeSearchFragment : Fragment() {
         }
 
         binding.btnApply.setOnClickListener {
-            viewModel.setCaloriesMin(
-                try {
-                    binding.editTextCalorieRangeMin.text.toString().toInt()
-                } catch (e: NumberFormatException) {
-                    0
-                }
-            )
-            viewModel.setCaloriesMax(
-                try {
-                    binding.editTextCalorieRangeMax.text.toString().toInt()
-                } catch (e: NumberFormatException) {
-                    0
-                }
-            )
+            submitDataToViewModel()
+
             if (editTextKeywordIsNotEmpty()) {
-                viewModel.collectData(keyword = binding.editTextKeyword.text.toString())
+                viewModel.getCollectedData().let {
+                    requireActivity().openActivity(RecipeSearchResultActivity::class.java) {
+                        putParcelable("REQUEST_DATA", it)
+                    }
+                }
             }
         }
 
+
         return binding.root
+    }
+
+    private fun submitDataToViewModel() {
+        viewModel.setCalories(
+            min = try {
+                binding.editTextCalorieRangeMin.text.toString().toInt()
+            } catch (e: NumberFormatException) {
+                0
+            },
+            max = try {
+                binding.editTextCalorieRangeMax.text.toString().toInt()
+            } catch (e: NumberFormatException) {
+                0
+            }
+        )
+
+        viewModel.setKeyWord(string = binding.editTextKeyword.toString())
     }
 
     private fun editTextKeywordIsNotEmpty(): Boolean {

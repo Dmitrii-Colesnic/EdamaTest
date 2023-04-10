@@ -24,7 +24,7 @@ suspend fun <T : Any> handleApi(
     } catch (e: HttpException) {
         ResponseError(code = e.code(), message = e.message())
     } catch (e: Throwable) {
-        Log.d("okhttp handleApi", "ResponseException - ${e.message}")
+        Log.d("okhttp", "handleApi Exception - ${e.message}")
         ResponseException(e)
     }
 }
