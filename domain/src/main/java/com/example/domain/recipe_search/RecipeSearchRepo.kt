@@ -4,10 +4,10 @@ import com.example.domain.recipe_search.models.RecipeResponseDomainModel
 
 interface RecipeSearchRepo {
     suspend fun getRecipe(
+        type: String,
         appId: String,
         appKey: String,
         keyWord: String,
-        calories: String,
         diet: List<String>,
         health: List<String>,
         cuisineType: List<String>,

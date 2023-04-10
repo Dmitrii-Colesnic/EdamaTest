@@ -1,8 +1,16 @@
 package com.example.edamatest.ui.recipe_search
 
+import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data.network.ResponseError
+import com.example.data.network.ResponseException
+import com.example.data.network.ResponseSuccess
 import com.example.domain.recipe_search.GetRecipeUseCase
+import com.example.domain.recipe_search.RecipeSearchResponseError
+import com.example.domain.recipe_search.RecipeSearchResponseException
+import com.example.domain.recipe_search.RecipeSearchResponseSuccess
 import com.example.edamatest.ui.recipe_search.adapter.CategoriesModel
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +18,13 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class RecipeSearchViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewModel() {
+
+//    private var _keyWord = MutableStateFlow("")
+//    val keyWord: StateFlow<String> = _keyWord.asStateFlow()
+
+    private var _calories =
+        MutableStateFlow(NutrientsModel(name = "calories", serverName = "calories"))
+    val caloriesMax: StateFlow<NutrientsModel> = _calories.asStateFlow()
 
     private val _healthList = MutableStateFlow(healthList())
     val healthList: StateFlow<List<CategoriesModel>> = _healthList.asStateFlow()
@@ -75,34 +90,40 @@ class RecipeSearchViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewM
         }
     }
 
-    fun collectData(keyword: String, caloriesMin: Int, caloriesMax: Int) {
-
-        val caloriesName = "calories"
-        val caloriesItem = NutrientsModel(
-            name = caloriesName,
-            serverName = caloriesName,
-            valueMin = caloriesMin,
-            valueMax = caloriesMax
-        )
-
-        viewModelScope.launch(Dispatchers.IO) {
-            recipeUseCase.execute(
+    fun collectData(keyword: String) {
+        viewModelScope.launch() {
+            val response = recipeUseCase.execute(
                 keyWord = keyword,
-                calories = caloriesItem.toServerFormatRange(),
                 diet = _dietList.value.getSelected(),
                 health = _healthList.value.getSelected(),
                 cuisineType = _cuisineTypeList.value.getSelected(),
                 nutrients = getNutrients(),
             )
-        }
 
+            when (response) {
+                is RecipeSearchResponseSuccess -> Log.d("okhttp", "ResponseSuccess")
+                is RecipeSearchResponseError -> Log.d("okhttp", "ResponseError")
+                is RecipeSearchResponseException -> {
+                    Log.d("okhttp", "ResponseException - ${response.e.message}")
+                }
+            }
+
+        }
     }
 
     private fun getNutrients(): Map<String, String> {
         val nutrientsMap = mutableMapOf<String, String>()
 
+        _calories.value.apply {
+            toServerFormatRange().let {
+                if (it.isNotEmpty()) {
+                    nutrientsMap[serverName] = it
+                }
+            }
+        }
+
         for (item in _macronutrientsList.value) {
-            item.nutrientsToServerFormatRange().let {
+            item.toServerFormatRange().let {
                 if (it.isNotEmpty()) {
                     nutrientsMap[item.serverName] = it
                 }
@@ -110,7 +131,7 @@ class RecipeSearchViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewM
         }
 
         for (item in _micronutrientsList.value) {
-            item.nutrientsToServerFormatRange().let {
+            item.toServerFormatRange().let {
                 if (it.isNotEmpty()) {
                     nutrientsMap[item.serverName] = it
                 }
@@ -119,12 +140,21 @@ class RecipeSearchViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewM
 
         return nutrientsMap
     }
-}
 
-private fun List<CategoriesModel>.getSelected(): List<String> = this.mapNotNull {
-    if (it.isChecked) {
-        it.name
-    } else {
-        null
+    fun setCaloriesMin(min: Int) {
+        _calories.value.valueMin = min
+    }
+
+    fun setCaloriesMax(max: Int) {
+        _calories.value.valueMax = max
+        {}
     }
 }
+
+    private fun List<CategoriesModel>.getSelected(): List<String> = this.mapNotNull {
+        if (it.isChecked) {
+            it.name
+        } else {
+            null
+        }
+    }

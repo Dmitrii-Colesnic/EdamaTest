@@ -5,7 +5,7 @@ data class RecipeResponseDomainModel(
     val to: Long,
     val count: Long,
     val _links: Links,
-    val hits: Hits,
+    val hits: ArrayList<Hits>,
 )
 
 data class Links(
@@ -84,5 +84,5 @@ data class TotalNutrients(
 data class Nutrient(
     val label: String,
     val quantity: Double,
-    val unit: Double,
+    val unit: String,
 )

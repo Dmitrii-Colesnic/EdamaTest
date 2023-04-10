@@ -14,8 +14,8 @@ import com.example.edamatest.ui.recipe_search.toDisplayFormatRange
 data class NutrientsModel(
     val name: String,
     val serverName: String,
-    val valueMin: Int = 0,
-    val valueMax: Int = 0,
+    var valueMin: Int = 0,
+    var valueMax: Int = 0,
 )
 
 class NutrientsRecyclerViewAdapter(

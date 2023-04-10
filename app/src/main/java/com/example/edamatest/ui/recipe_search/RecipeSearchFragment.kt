@@ -114,38 +114,31 @@ class RecipeSearchFragment : Fragment() {
         }
 
         binding.btnApply.setOnClickListener {
-            val valueMin = try {
-                binding.editTextCalorieRangeMin.text.toString().toInt()
-            } catch (e: NumberFormatException) {
-                0
-            }
-            val valueMax = try {
-                binding.editTextCalorieRangeMax.text.toString().toInt()
-            } catch (e: NumberFormatException) {
-                0
-            }
-            if (editTextKeywordIsNotEmpty() && checkCaloriesField(valueMin, valueMax)) {
-                viewModel.collectData(
-                    keyword = binding.editTextKeyword.text.toString(),
-                    caloriesMin = valueMin,
-                    caloriesMax = valueMax,
-                )
+            viewModel.setCaloriesMin(
+                try {
+                    binding.editTextCalorieRangeMin.text.toString().toInt()
+                } catch (e: NumberFormatException) {
+                    0
+                }
+            )
+            viewModel.setCaloriesMax(
+                try {
+                    binding.editTextCalorieRangeMax.text.toString().toInt()
+                } catch (e: NumberFormatException) {
+                    0
+                }
+            )
+            if (editTextKeywordIsNotEmpty()) {
+                viewModel.collectData(keyword = binding.editTextKeyword.text.toString())
             }
         }
 
         return binding.root
     }
 
-    private fun checkCaloriesField(min: Int, max: Int): Boolean {
-        if (min >= max && max != 0) {
-            binding.tvCaloriesFieldError.visibility = View.VISIBLE
-            return false
-        }
-        return true
-    }
-
     private fun editTextKeywordIsNotEmpty(): Boolean {
         if (binding.editTextKeyword.text.toString().isEmpty()) {
+            binding.nestedScrollView.scrollTo(0, 0)
             binding.tvKeywordError.visibility = View.VISIBLE
             return false
         }

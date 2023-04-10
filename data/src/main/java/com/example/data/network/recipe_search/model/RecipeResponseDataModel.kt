@@ -7,7 +7,7 @@ data class RecipeResponseDataModel(
     @SerializedName("to") val to: Long,
     @SerializedName("count") val count: Long,
     @SerializedName("_links") val _links: Links,
-    @SerializedName("hits") val hits: Hits,
+    @SerializedName("hits") val hits: ArrayList<Hits>,
 )
 
 data class Links(
@@ -19,6 +19,7 @@ data class SubLink(
     @SerializedName("href") val href: String,
     @SerializedName("title") val title: String,
 )
+
 
 data class Hits(
     @SerializedName("recipe") val recipe: Recipe,
@@ -43,7 +44,7 @@ data class Recipe(
     @SerializedName("totalWeight") val totalWeight: Double,
     @SerializedName("totalTime") val totalTime: Double,
     @SerializedName("totalNutrients") val totalNutrients: TotalNutrients,
-    )
+)
 
 data class TotalNutrients(
     @SerializedName("ENERC_KCAL") val ENERC_KCAL: Nutrient,
@@ -77,7 +78,7 @@ data class TotalNutrients(
     @SerializedName("FOLAC") val FOLAC: Nutrient,
     @SerializedName("VITB12") val VITB12: Nutrient,
     @SerializedName("VITD") val VITD: Nutrient,
-    @SerializedName("VITD") val VITE: Nutrient,
+    @SerializedName("VITE") val VITE: Nutrient,
     @SerializedName("VITK1") val VITK1: Nutrient,
     @SerializedName("Sugar.alcohol") val SugarDatAlcohol: Nutrient,
     @SerializedName("WATER") val WATER: Nutrient,
@@ -86,5 +87,5 @@ data class TotalNutrients(
 data class Nutrient(
     @SerializedName("label") val label: String,
     @SerializedName("quantity") val quantity: Double,
-    @SerializedName("unit") val unit: Double,
+    @SerializedName("unit") val unit: String,
 )

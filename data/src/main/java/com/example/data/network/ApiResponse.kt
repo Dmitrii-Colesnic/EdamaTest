@@ -1,5 +1,6 @@
 package com.example.data.network
 
+import android.util.Log
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -23,6 +24,7 @@ suspend fun <T : Any> handleApi(
     } catch (e: HttpException) {
         ResponseError(code = e.code(), message = e.message())
     } catch (e: Throwable) {
+        Log.d("okhttp handleApi", "ResponseException - ${e.message}")
         ResponseException(e)
     }
 }

@@ -1,7 +1,6 @@
 package com.example.edamatest.di
 
 
-import androidx.viewbinding.BuildConfig
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -35,7 +34,7 @@ val RetrofitModule = module {
 private fun Scope.retrofitBuilder(): Retrofit {
     return Retrofit.Builder()
         .baseUrl("https://api.edamam.com/")
-        .addConverterFactory(GsonConverterFactory.create(get()))
+        .addConverterFactory(GsonConverterFactory.create())
         .client(get())
         .build()
 }
@@ -49,11 +48,12 @@ private fun Scope.retrofitHttpClient(): OkHttpClient {
         retryOnConnectionFailure(true)
 //        addInterceptor(get())
         addInterceptor(HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
-            } else {
-                HttpLoggingInterceptor.Level.NONE
-            }
+//            level = if (BuildConfig.DEBUG) {
+//                HttpLoggingInterceptor.Level.BODY
+//            } else {
+//                HttpLoggingInterceptor.Level.NONE
+//            }
+            level = HttpLoggingInterceptor.Level.BODY
         })
     }.build()
 }
