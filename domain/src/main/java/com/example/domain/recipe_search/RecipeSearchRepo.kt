@@ -13,6 +13,10 @@ interface RecipeSearchRepo {
         cuisineType: List<String>,
         nutrients: Map<String, String>
     ): RecipeSearchResponse<RecipeResponseDomainModel>
+
+    suspend fun getRecipeNext(
+        url: String
+    ): RecipeSearchResponse<RecipeResponseDomainModel>
 }
 
 sealed interface RecipeSearchResponse<T : Any>

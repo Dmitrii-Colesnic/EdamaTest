@@ -43,11 +43,11 @@ fun micronutrientsList(): List<NutrientsModel> {
 fun dietList(): List<CategoriesModel> {
     return listOf(
         CategoriesModel(name = "balanced"),
-        CategoriesModel(name = "high-Fiber"),
-        CategoriesModel(name = "high-Protein"),
-        CategoriesModel(name = "low-Carb"),
-        CategoriesModel(name = "low-Fat"),
-        CategoriesModel(name = "low-Sodium"),
+        CategoriesModel(name = "high-fiber"),
+        CategoriesModel(name = "high-protein"),
+        CategoriesModel(name = "low-carb"),
+        CategoriesModel(name = "low-fat"),
+        CategoriesModel(name = "low-sodium"),
 )
 }
 
@@ -59,7 +59,7 @@ fun healthList(): List<CategoriesModel> {
         CategoriesModel(name = "kosher"),
         CategoriesModel(name = "low-potassium"),
         CategoriesModel(name = "no-oil-added"),
-        CategoriesModel(name = "no-sugar"),
+        CategoriesModel(name = "low-sugar"),
         CategoriesModel(name = "paleo"),
         CategoriesModel(name = "pescatarian"),
         CategoriesModel(name = "pork-free"),
@@ -79,7 +79,7 @@ fun healthList(): List<CategoriesModel> {
         CategoriesModel(name = "sesame-free"),
         CategoriesModel(name = "shellfish-free"),
         CategoriesModel(name = "soy-free"),
-        CategoriesModel(name = "tree-Nut-free"),
+        CategoriesModel(name = "tree-nut-free"),
         CategoriesModel(name = "wheat-free"),
     )
 }

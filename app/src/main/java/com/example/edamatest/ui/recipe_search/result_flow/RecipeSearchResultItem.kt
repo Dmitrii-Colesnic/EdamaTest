@@ -1,6 +1,7 @@
 package com.example.edamatest.ui.recipe_search.result_flow
 
 data class RecipeSearchResultItem(
+    val id: Int,
     val uri: String,
     val label: String,
     val image: String,

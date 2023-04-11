@@ -24,20 +24,3 @@ fun NutrientsModel.toServerFormatRange(): String {
         ""
     }
 }
-
-fun NutrientsModel.nutrientsToServerFormatRange(): String {
-    var range = ""
-    if (valueMin != 0 && valueMax != 0) {
-        range = "$valueMin-$valueMax"
-    } else if (valueMin != 0) {
-        range = "$valueMax+"
-    } else if (valueMax != 0) {
-        range = valueMax.toString()
-    }
-
-    return if (range.isNotEmpty()) {
-        "$serverName=$range"
-    } else {
-        ""
-    }
-}

@@ -4,15 +4,14 @@ import android.util.Log
 import com.example.data.network.ResponseError
 import com.example.data.network.ResponseException
 import com.example.data.network.ResponseSuccess
-import com.example.data.network.recipe_search.model.Hits
 import com.example.data.network.recipe_search.model.Nutrient
-import com.example.data.network.recipe_search.model.Recipe
 import com.example.data.network.recipe_search.model.RecipeResponseDataModel
-import com.example.data.network.recipe_search.model.TotalNutrients
 import com.example.domain.recipe_search.*
 import com.example.domain.recipe_search.models.*
 
-class RecipeSearchRepoImpl(private val recipeApiRemoteSource: RecipeApiRemoteSource) :
+class RecipeSearchRepoImpl(
+    private val recipeApiRemoteSource: RecipeApiRemoteSource
+) :
     RecipeSearchRepo {
     override suspend fun getRecipe(
         type: String,
@@ -25,7 +24,7 @@ class RecipeSearchRepoImpl(private val recipeApiRemoteSource: RecipeApiRemoteSou
         nutrients: Map<String, String>
     ): RecipeSearchResponse<RecipeResponseDomainModel> {
         return try {
-            val response = recipeApiRemoteSource.invoke(
+            val response = recipeApiRemoteSource.invokeSearchQuery(
                 type = type,
                 appId = appId,
                 appKey = appKey,
@@ -52,7 +51,36 @@ class RecipeSearchRepoImpl(private val recipeApiRemoteSource: RecipeApiRemoteSou
                 }
             }
         } catch (e: Throwable) {
-            Log.d("okhttp", "Mapping Exception - ${e.message}")
+            Log.d("okhttp", "DomainLayer Mapping Exception - ${e.message}")
+            RecipeSearchResponseException(e = e)
+        }
+    }
+
+    override suspend fun getRecipeNext(
+        url: String
+    ): RecipeSearchResponse<RecipeResponseDomainModel> {
+        return try {
+            val response = recipeApiRemoteSource.invokeSearchQueryNext(
+                url = url
+            )
+
+            response.let {
+                when (it) {
+                    is ResponseSuccess -> RecipeSearchResponseSuccess(
+                        data = it.data.toDomainModel()
+                    )
+                    is ResponseError -> RecipeSearchResponseError(
+                        code = it.code, message = it.message
+                    )
+                    is ResponseException -> {
+                        RecipeSearchResponseException(
+                            e = it.e
+                        )
+                    }
+                }
+            }
+        } catch (e: Throwable) {
+            Log.d("okhttp", "DomainLayer Mapping Exception - ${e.message}")
             RecipeSearchResponseException(e = e)
         }
     }
@@ -68,13 +96,20 @@ private fun RecipeResponseDataModel.toDomainModel() = RecipeResponseDomainModel(
 )
 
 fun com.example.data.network.recipe_search.model.Links.toDomain() = Links(
+    self = self.toDomain(),
     next = next.toDomain()
 )
 
-fun com.example.data.network.recipe_search.model.SubLink.toDomain() = SubLink(
-    href = href,
-    title = title
-)
+fun com.example.data.network.recipe_search.model.SubLink?.toDomain(): SubLink? {
+    return if (this == null) {
+        null
+    } else {
+        SubLink(
+            href = href,
+            title = title
+        )
+    }
+}
 
 fun com.example.data.network.recipe_search.model.Hits.toDomain() = Hits(
     recipe = Recipe(

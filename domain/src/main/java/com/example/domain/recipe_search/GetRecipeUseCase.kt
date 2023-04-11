@@ -25,4 +25,11 @@ class GetRecipeUseCase(private val recipeSearchRepo: RecipeSearchRepo) {
             nutrients = nutrients
         )
     }
+    suspend fun executeNext(
+        url: String
+    ): RecipeSearchResponse<RecipeResponseDomainModel> {
+        return recipeSearchRepo.getRecipeNext(
+            url = url
+        )
+    }
 }

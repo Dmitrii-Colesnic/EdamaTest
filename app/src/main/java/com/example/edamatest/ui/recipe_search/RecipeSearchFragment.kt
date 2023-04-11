@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.edamatest.databinding.FragmentRecipeSearchBinding
+import com.example.edamatest.hideKeyboard
 import com.example.edamatest.openActivity
 import com.example.edamatest.ui.launchAndCollectWithLifecycle
 import com.example.edamatest.ui.recipe_search.adapter.DietsRecyclerViewAdapter
@@ -123,6 +124,7 @@ class RecipeSearchFragment : Fragment() {
                     requireActivity().openActivity(RecipeSearchResultActivity::class.java) {
                         putParcelable("REQUEST_DATA", it)
                     }
+                    binding.root.hideKeyboard()
                 }
             }
         }
@@ -145,7 +147,7 @@ class RecipeSearchFragment : Fragment() {
             }
         )
 
-        viewModel.setKeyWord(string = binding.editTextKeyword.toString())
+        viewModel.setKeyWord(string = binding.editTextKeyword.text.toString())
     }
 
     private fun editTextKeywordIsNotEmpty(): Boolean {

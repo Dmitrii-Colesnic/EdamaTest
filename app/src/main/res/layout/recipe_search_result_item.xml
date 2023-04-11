@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:elevation="10dp">
+    android:elevation="100dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?attr/colorOnPrimaryContainer">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,7 +23,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_categories"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -34,13 +36,13 @@
                 android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/iv_main"
-                app:layout_constraintTop_toTopOf="@id/iv_main" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_categories"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Low Fat • Low Sodium • Low Potassium • Kidney Friendly • Vegan • Vegetarian • Pescatarian • Dairy Free • Gluten Free • Low Fat • Low Sodium • Low Potassium • Kidney Friendly • Vegan • Vegetarian • Pescatarian • Dairy Free • Gluten Free"
                 android:textColor="@color/gray_dark"
                 android:textSize="12dp"
@@ -53,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blue_dark_20"
-            android:paddingVertical="20dp">
+            android:paddingVertical="10dp">
 
             <TextView
                 android:id="@+id/tv_kcal"

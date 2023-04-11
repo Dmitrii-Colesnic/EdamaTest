@@ -43,8 +43,8 @@ fun Context.writeRangeAlert(valueMin: Int, valueMax: Int, returnValue: (Int, Int
 
         //handle error
         if ((etValueMin >= etValueMax  &&  etValueMax != 0)
-            ||  etValueMin > 100
-            ||  etValueMax > 100
+            ||  etValueMin > 1000
+            ||  etValueMax > 1000
         ) {
             binding.textViewError.visibility = View.VISIBLE
         } else {

@@ -9,8 +9,8 @@ data class RecipeResponseDomainModel(
 )
 
 data class Links(
-//    val self: SubLink,
-    val next: SubLink,
+    val self: SubLink?,
+    val next: SubLink?,
 )
 
 data class SubLink(

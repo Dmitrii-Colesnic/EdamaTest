@@ -32,3 +32,14 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setupWithNavController(navController)
     }
 }
+
+/**
+ * TODO:
+ *
+ * 1. Get RecipeSearch data in RecipeSearchFragment save to db and get in RecipeSearchResultActivity
+ * 2. Get from server json
+ * 3. Better work with stateFlow and sharedFlow
+ * 4. Implement db history search
+ * 5. RecyclerView implement with Google Paging3
+ *
+ * */
