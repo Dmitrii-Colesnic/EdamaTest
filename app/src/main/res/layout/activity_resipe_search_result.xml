@@ -10,14 +10,15 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        tools:listitem="@layout/recipe_search_result_item"/>
+        android:visibility="gone"
+        tools:listitem="@layout/recipe_search_result_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     <ProgressBar
         android:id="@+id/progressBar_loadingData"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

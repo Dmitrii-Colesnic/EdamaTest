@@ -3,7 +3,11 @@ package com.example.edamatest.ui.recipe_search
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
+import com.example.edamatest.R
 import com.example.edamatest.databinding.WriteRangeAlertBinding
 
 fun Context.writeRangeAlert(valueMin: Int, valueMax: Int, returnValue: (Int, Int) -> Unit) {
@@ -48,5 +52,12 @@ fun Context.writeRangeAlert(valueMin: Int, valueMax: Int, returnValue: (Int, Int
             alertDialog.cancel()
         }
     }
+}
+
+fun ImageView.loadPictures(url: String, @DrawableRes placeholder: Int = R.drawable.recipe_item_palaceholder){
+    Glide.with(this)
+        .load(url)
+        .placeholder(placeholder)
+        .into(this)
 }
 

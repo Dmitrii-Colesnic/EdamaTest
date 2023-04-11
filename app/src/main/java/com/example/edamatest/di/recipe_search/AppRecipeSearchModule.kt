@@ -8,13 +8,13 @@ import org.koin.dsl.module
 val appRecipeSearchModule = module {
 
     viewModel {
-        RecipeSearchViewModel(
-            recipeUseCase = get()
-        )
+        RecipeSearchViewModel()
     }
 
     viewModel {
-        RecipeSearchResultViewModel()
+        RecipeSearchResultViewModel(
+            recipeUseCase = get()
+        )
     }
 
 }

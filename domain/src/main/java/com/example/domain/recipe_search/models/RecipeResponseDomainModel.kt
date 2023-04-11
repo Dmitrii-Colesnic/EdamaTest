@@ -9,13 +9,13 @@ data class RecipeResponseDomainModel(
 )
 
 data class Links(
-//    val self: SubLink?,
-    val next: SubLink?,
+//    val self: SubLink,
+    val next: SubLink,
 )
 
 data class SubLink(
-    val href: String?,
-    val title: String?,
+    val href: String,
+    val title: String,
 )
 
 data class Hits(
@@ -24,19 +24,19 @@ data class Hits(
 )
 
 data class Recipe(
-    val uri: String?,
-    val label: String?,
-    val image: String?,
-    val source: String?,
-    val url: String?,
+    val uri: String,
+    val label: String,
+    val image: String,
+    val source: String,
+    val url: String,
     val yield: Float,
-    val dietLabels: List<String>?,
-    val healthLabels: List<String>?,
-    val cautions: List<String>?,
-    val ingredientLines: List<String>?,
-    val cuisineType: List<String>?,
-    val mealType: List<String>?,
-    val dishType: List<String>?,
+    val dietLabels: List<String>,
+    val healthLabels: List<String>,
+    val cautions: List<String>,
+    val ingredientLines: List<String>,
+    val cuisineType: List<String>,
+    val mealType: List<String>,
+    val dishType: List<String>,
     val calories: Double,
     val totalWeight: Double,
     val totalTime: Double,

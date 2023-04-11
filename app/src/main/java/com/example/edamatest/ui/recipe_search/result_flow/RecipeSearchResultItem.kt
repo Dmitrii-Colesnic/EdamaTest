@@ -1,14 +1,15 @@
 package com.example.edamatest.ui.recipe_search.result_flow
 
 data class RecipeSearchResultItem(
-    val uri: String?,
-    val label: String?,
-    val image: String?,
-    val source: String?,
-    val url: String?,
-    val healthLabels: String?,
+    val uri: String,
+    val label: String,
+    val image: String,
+    val source: String,
+    val url: String,
+    val calories: Int,
+    val healthLabels: List<String>,
     val macroNutrients: MacroNutrients,
-    val microNutrients: MicroNutrients,
+    val microNutrients: MicroNutrients
 )
 
 data class MacroNutrients(
@@ -29,7 +30,6 @@ data class MicroNutrients(
 
 data class Nutrient(
     val label: String,
-    val quantity: Double,
+    val quantity: Int,
     val unit: String,
 )
-
