@@ -3,6 +3,7 @@ package com.example.edamatest.ui.recipe_search.result_flow
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,26 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edamatest.databinding.RecipeSearchResultItemBinding
 import com.example.edamatest.ui.recipe_search.loadPictures
 
-class RecipeSearchResultRecyclerViewAdapter :
+class RecipeSearchResultRecyclerViewAdapter(
+    private val onItemClickListener: (RecipeSearchResultItem) -> Unit,
+) :
     RecyclerView.Adapter<RecipeSearchResultRecyclerViewAdapter.ViewHolder>() {
 
-    private val callbackDiffer = object : DiffUtil.ItemCallback<RecipeSearchResultItem>() {
-        override fun areItemsTheSame(
-            oldItem: RecipeSearchResultItem,
-            newItem: RecipeSearchResultItem
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(
-            oldItem: RecipeSearchResultItem,
-            newItem: RecipeSearchResultItem
-        ): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-    val differ = AsyncListDiffer(this, callbackDiffer)
+    val differ = AsyncListDiffer(this, CallbackDiffer)
 
     inner class ViewHolder(val binding: RecipeSearchResultItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -48,11 +35,16 @@ class RecipeSearchResultRecyclerViewAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = differ.currentList[position]
 
+        holder.itemView.setOnClickListener {
+            onItemClickListener.invoke(item)
+        }
+
         holder.binding.ivMain.loadPictures(item.image)
         holder.binding.tvTitle.text = item.label
         holder.binding.tvCategories.text = item.healthLabels.mapToString()
 
-        holder.binding.tvKcal.text = item.calories.toString()
+        holder.binding.tvServings.text = "${item.yield.toString()} servings"
+        holder.binding.tvKcalValue.text = item.calories.toString()
 
         holder.binding.tvProtein.text = item.macroNutrients.PROCNT.label
         holder.binding.tvProteinValue.text =
@@ -98,4 +90,21 @@ private fun List<String>.mapToString(): String {
         result += "$item • "
     }
     return result
+}
+
+object CallbackDiffer : DiffUtil.ItemCallback<RecipeSearchResultItem>() {
+    override fun areItemsTheSame(
+        oldItem: RecipeSearchResultItem,
+        newItem: RecipeSearchResultItem
+    ): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(
+        oldItem: RecipeSearchResultItem,
+        newItem: RecipeSearchResultItem
+    ): Boolean {
+        return oldItem == newItem
+    }
+
 }

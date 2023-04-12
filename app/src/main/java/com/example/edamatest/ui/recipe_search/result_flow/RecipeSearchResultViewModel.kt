@@ -3,6 +3,10 @@ package com.example.edamatest.ui.recipe_search.result_flow
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.domain.recipe_search.GetRecipeUseCase
 import com.example.domain.recipe_search.RecipeSearchResponseError
 import com.example.domain.recipe_search.RecipeSearchResponseException
@@ -14,39 +18,27 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 
 class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewModel() {
 
-    private val _recipeSearchResult = MutableSharedFlow<List<RecipeSearchResultItem>>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    private val _recipeSearchResult = MutableSharedFlow<List<RecipeSearchResultItem>>(replay = 1)
     val recipeSearchResult: SharedFlow<List<RecipeSearchResultItem>> =
         _recipeSearchResult.asSharedFlow()
 
-//    private val _recipeSearchResult = MutableStateFlow<List<RecipeSearchResultItem>>(emptyList())
-//    val recipeSearchResult: StateFlow<List<RecipeSearchResultItem>> =
-//        _recipeSearchResult.asStateFlow()
-
     private var nextPageURL: String? = null
 
-    private val _responseError = MutableSharedFlow<String>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    private val _responseError = MutableSharedFlow<String>(replay = 1)
     val responseError = _responseError.asSharedFlow()
 
-    private val _responseException = MutableSharedFlow<String>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-    val responseException = _responseError.asSharedFlow()
+    private val _responseException = MutableSharedFlow<String>(replay = 1)
+    val responseException = _responseException.asSharedFlow()
 
     private val _loadingEvent = MutableStateFlow(true)
     val loadingEvent = _loadingEvent.asStateFlow()
 
-    private val _isLastPage = MutableStateFlow(false)
-    val isLastPage = _isLastPage.asStateFlow()
+    private val _loadingMoreItemsEvent = MutableStateFlow(false)
+    val loadingMoreItemsEvent = _loadingMoreItemsEvent.asStateFlow()
 
     fun getRecipeList(requestObject: RequestModel) {
 
@@ -67,17 +59,14 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
                         "UIResponseSuccess"
                     )
                     nextPageURL = response.data._links.next?.href
-//                    _recipeSearchResult.update {
-//                        withContext(Dispatchers.Default) {
-//                            response.data.hits.map { it.toUiModel() }
-//                        }
-//                    }
+
                     _recipeSearchResult.tryEmit(
                         withContext(Dispatchers.Default) {
                             response.data.hits.map { it.toUiModel() }
                         }
                     )
                     _loadingEvent.value = false
+                    _loadingMoreItemsEvent.value = false
                 }
                 is RecipeSearchResponseError -> {
                     _responseError.tryEmit(
@@ -88,6 +77,7 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
                         "UIResponseError: responseCode = ${response.code},  responseMessage = ${response.message}"
                     )
                     _loadingEvent.value = false
+                    _loadingMoreItemsEvent.value = false
                 }
                 is RecipeSearchResponseException -> {
                     _responseException.tryEmit(
@@ -98,6 +88,7 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
                         "UIResponseException - exceptionCode = ${response.e.message}"
                     )
                     _loadingEvent.value = false
+                    _loadingMoreItemsEvent.value = false
                 }
             }
 
@@ -106,8 +97,13 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
 
     fun getRecipeListNext() {
 
-        if (nextPageURL != null) {
             viewModelScope.launch {
+                _loadingMoreItemsEvent.value = true
+                if (nextPageURL == null) {
+                    _loadingMoreItemsEvent.value = false
+                    return@launch
+                }
+
                 val response = recipeUseCase.executeNext(
                     url = nextPageURL!!
                 )
@@ -120,20 +116,13 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
                         )
 
                         nextPageURL = response.data._links.next?.href
-//                        _recipeSearchResult.update { prevList ->
-//                            withContext(Dispatchers.Default) {
-//                                val newList = ArrayList(prevList)
-//                                response.data.hits.map { newList.add(it.toUiModel()) }
-//                                newList
-//                            }
-//                        }
-                        _recipeSearchResult.collect { oldList ->
+
+                        _recipeSearchResult.tryEmit(
                             withContext(Dispatchers.Default) {
-                                val newList = ArrayList(oldList)
-                                response.data.hits.map { newList.add(it.toUiModel()) }
-                                _recipeSearchResult.tryEmit(newList)
+                                _recipeSearchResult.first() + response.data.hits.map { it.toUiModel() }
                             }
-                        }
+                        )
+                        _loadingMoreItemsEvent.value = false
                     }
                     is RecipeSearchResponseError -> {
                         _responseError.tryEmit(
@@ -143,6 +132,7 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
                             "okhttp",
                             "UIResponseError: responseCode = ${response.code},  responseMessage = ${response.message}"
                         )
+                        _loadingMoreItemsEvent.value = false
                     }
                     is RecipeSearchResponseException -> {
                         _responseException.tryEmit(
@@ -152,25 +142,28 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
                             "okhttp",
                             "UIResponseException - exceptionCode = ${response.e.message}"
                         )
+                        _loadingMoreItemsEvent.value = false
                     }
                 }
 
             }
-        } else {
-            _isLastPage.value = true
-        }
+    }
+
+    fun clearLoadingMoreItemsEvent() {
+        _loadingMoreItemsEvent.value = false
     }
 
 }
 
-var badCounter = 0
-private fun Hits.toUiModel() = RecipeSearchResultItem(
+private var badCounter = 0
+fun Hits.toUiModel() = RecipeSearchResultItem(
     id = ++badCounter,
     uri = recipe.uri,
     label = recipe.label,
     image = recipe.image,
     source = recipe.source,
     url = recipe.url,
+    yield = recipe.yield.toInt(),
     calories = recipe.calories.toInt(),
     healthLabels = recipe.dietLabels + recipe.healthLabels,
     macroNutrients = MacroNutrients(
@@ -186,7 +179,8 @@ private fun Hits.toUiModel() = RecipeSearchResultItem(
         MG = recipe.totalNutrients.MG.toUiModel(),
         K = recipe.totalNutrients.K.toUiModel(),
         FE = recipe.totalNutrients.FE.toUiModel(),
-    )
+    ),
+    ingredients = recipe.ingredientLines
 )
 
 private fun Nutrient.toUiModel() = com.example.edamatest.ui.recipe_search.result_flow.Nutrient(

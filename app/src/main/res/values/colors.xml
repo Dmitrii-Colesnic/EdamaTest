@@ -3,6 +3,7 @@
     Primary - base color
     <color name="blue_dark">#28527A</color>
     <color name="blue_dark_20">#3328527A</color>
+    <color name="blue_dark_10">#1A28527A</color>
 
     On-primary - is applied to content (icons, text, etc.) that sits on top of primary
     <color name="yellow_dark_dark">#835641</color>

@@ -7,10 +7,12 @@ data class RecipeSearchResultItem(
     val image: String,
     val source: String,
     val url: String,
+    val yield: Int,
     val calories: Int,
     val healthLabels: List<String>,
     val macroNutrients: MacroNutrients,
-    val microNutrients: MicroNutrients
+    val microNutrients: MicroNutrients,
+    val ingredients: List<String>
 )
 
 data class MacroNutrients(
