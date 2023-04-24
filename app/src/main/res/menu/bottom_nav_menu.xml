@@ -2,18 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nutrition_analysis_item"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:id="@+id/fragment_nutrition_analysis_item"
+        android:icon="@drawable/baseline_balance_24"
         android:title="@string/empty_string" />
 
     <item
-        android:id="@+id/recipe_search_item"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/empty_string" />
-
-    <item
-        android:id="@+id/history_item"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:id="@+id/fragment_recipe_search_item"
+        android:icon="@drawable/baseline_flatware_24"
         android:title="@string/empty_string" />
 
 </menu>

@@ -17,6 +17,7 @@ import com.example.edamatest.ui.recipe_search.loadPictures
 import com.example.edamatest.ui.showErrorAlertDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+const val REQUEST_DATA = "REQUEST_DATA"
 class RecipeSearchResultActivity : AppCompatActivity() {
 
     private val binding: ActivityResipeSearchResultBinding by lazy {
@@ -34,7 +35,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
 
         initToolbar()
 
-        val request = intent.getParcelableExtra<RequestModel>("REQUEST_DATA")
+        val request = intent.getParcelableExtra<RequestModel>(REQUEST_DATA)
         if (request != null) {
             viewModel.getRecipeList(request)
         } else {

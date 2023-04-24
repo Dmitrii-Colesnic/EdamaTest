@@ -15,9 +15,13 @@
         android:theme="@style/Theme.EdamaTest"
         tools:targetApi="31">
         <activity
+            android:name=".ui.nutrition_analysis.result_flow.NutritionAnalysisResultActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ResultPage" />
+        <activity
             android:name=".ui.recipe_search.result_flow.RecipeSearchResultActivity"
             android:exported="false"
-            android:theme="@style/Theme.ResultPage"/>
+            android:theme="@style/Theme.ResultPage" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

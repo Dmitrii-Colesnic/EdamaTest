@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nutrition_analysis_item, R.id.recipe_search_item, R.id.history_item
+                R.id.fragment_nutrition_analysis_item, R.id.fragment_recipe_search_item
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -41,5 +41,6 @@ class MainActivity : AppCompatActivity() {
  * 3. Better work with stateFlow and sharedFlow
  * 4. Implement db history search
  * 5. RecyclerView implement with Google Paging3
+ * 6. make NutritionAnalysisFragment without TextView only with RecyclerView
  *
  * */

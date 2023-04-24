@@ -12,6 +12,7 @@ import com.example.edamatest.ui.launchAndCollectWithLifecycle
 import com.example.edamatest.ui.recipe_search.adapter.DietsRecyclerViewAdapter
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsModel
 import com.example.edamatest.ui.recipe_search.adapter.NutrientsRecyclerViewAdapter
+import com.example.edamatest.ui.recipe_search.result_flow.REQUEST_DATA
 import com.example.edamatest.ui.recipe_search.result_flow.RecipeSearchResultActivity
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -122,7 +123,7 @@ class RecipeSearchFragment : Fragment() {
             if (editTextKeywordIsNotEmpty()) {
                 viewModel.getCollectedData().let {
                     requireActivity().openActivity(RecipeSearchResultActivity::class.java) {
-                        putParcelable("REQUEST_DATA", it)
+                        putParcelable(REQUEST_DATA, it)
                     }
                     binding.root.hideKeyboard()
                 }

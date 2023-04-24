@@ -3,6 +3,7 @@ package com.example.edamatest
 import android.app.Application
 import com.example.edamatest.di.RetrofitModule
 import com.example.edamatest.di.apiModule
+import com.example.edamatest.di.nutrition_analysis.appNutritionAnalysisModule
 import com.example.edamatest.di.recipe_search.appRecipeSearchModule
 import com.example.edamatest.di.recipe_search.dataRecipeSearchModule
 import com.example.edamatest.di.recipe_search.domainRecipeSearchModule
@@ -22,7 +23,8 @@ class App : Application() {
             modules(
                 listOf(
                     apiModule, RetrofitModule,
-                    appRecipeSearchModule, domainRecipeSearchModule, dataRecipeSearchModule
+                    appRecipeSearchModule, domainRecipeSearchModule, dataRecipeSearchModule,
+                    appNutritionAnalysisModule
                 )
             )
         }
