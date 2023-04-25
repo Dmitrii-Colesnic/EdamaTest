@@ -14,7 +14,6 @@ const val NUTRITION_ANALYSIS_LIST_KEY = "NUTRITION_ANALYSIS_LIST_KEY"
 
 class NutritionAnalysisResultActivity : AppCompatActivity() {
 
-
     private val binding: ActivityNutritionAnalysisResultBinding by lazy {
         ActivityNutritionAnalysisResultBinding.inflate(layoutInflater)
     }
