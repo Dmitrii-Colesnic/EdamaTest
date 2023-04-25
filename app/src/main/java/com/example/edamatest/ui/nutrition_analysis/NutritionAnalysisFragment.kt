@@ -49,8 +49,17 @@ class NutritionAnalysisFragment : Fragment() {
 
     private fun goToResultModel() {
         val recipe = arrayListOf<String>()
+        binding.textInputEditText.text.toString().let {
+            if (it.isNotEmpty()) {
+                recipe.add(it)
+            }
+        }
         for (item in viewModel.listOfItems.value) {
-            recipe.add(item.input)
+            item.input.let {
+                if (it.isNotEmpty()) {
+                    recipe.add(it)
+                }
+            }
         }
         requireActivity().openActivity(NutritionAnalysisResultActivity::class.java) {
             putStringArrayList(NUTRITION_ANALYSIS_LIST_KEY, recipe)

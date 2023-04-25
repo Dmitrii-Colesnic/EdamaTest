@@ -1,14 +1,14 @@
 {
-  "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_3bd7541037004ee9b6c80fcef05f280f",
-  "yield": 6,
-  "calories": 1812,
-    "totalWeight": 633.49523125,
-  "dietLabels": [
+  "--uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_3bd7541037004ee9b6c80fcef05f280f",
+  "--yield": 6,
+  "--calories": 1812,
+  "--totalWeight": 633.49523125,
+  "--dietLabels": [
     "HIGH_FIBER",
     "LOW_FAT",
     "LOW_SODIUM"
   ],
-  "healthLabels": [
+  "--healthLabels": [
     "VEGAN",
     "VEGETARIAN",
     "PESCATARIAN",
@@ -38,7 +38,7 @@
     "SULPHITE_FREE",
     "KOSHER"
   ],
-  "cautions": [],
+  "--cautions": [],
   "totalNutrients": {
     "ENERC_KCAL": {
       "label": "Energy",

@@ -28,11 +28,11 @@ class NutritionAnalysisResultActivity : AppCompatActivity() {
         val request: ArrayList<String>? =
             intent.getStringArrayListExtra(NUTRITION_ANALYSIS_LIST_KEY)
         if (request != null) {
-            var requestString = ""
-            for (item in request) {
-                requestString += "$item\n"
-            }
-            showSuccessAlertDialog("Parcelable data $requestString") { finish() }
+//            var requestString = ""
+//            for (item in request) {
+//                requestString += "\n$item"
+//            }
+//            showSuccessAlertDialog("Parcelable data $requestString") { finish() }
         } else {
             showErrorAlertDialog("Parcelable data null") { finish() }
         }
