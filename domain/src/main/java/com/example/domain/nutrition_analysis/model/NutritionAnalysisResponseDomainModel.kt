@@ -100,6 +100,6 @@ data class TotalNutrientsKCalDomain(
 
 data class NutrientDomain(
     val label: String,
-    val quantity: Double,
+    val quantity: Int,
     val unit: String,
 )

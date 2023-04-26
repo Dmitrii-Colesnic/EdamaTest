@@ -6,7 +6,7 @@ data class NutritionAnalysisResponseDataModel(
     val totalNutrients: TotalNutrientsData,
     val totalDaily: TotalDailyData,
     val ingredients: List<IngredientData>,
-    val nutrientsKCal: TotalNutrientsKCalData
+    val totalNutrientsKCal: TotalNutrientsKCalData
 )
 
 data class TotalNutrientsData(
@@ -84,8 +84,8 @@ data class ParsedData(
     val foodMatch: String,
     val food: String,
     val foodId: String,
-    val weight: Int,
-    val retainedWeight: Int,
+    val weight: Double,
+    val retainedWeight: Double,
     val nutrients: IngredientNutrientsData,
     val measureURI: String,
     val status: String,
@@ -121,14 +121,20 @@ data class IngredientNutrientsData (
     )
 
 data class TotalNutrientsKCalData(
-    @SerializedName("ENERC_KCAL") val ENERC_KCAL: NutrientData,
-    @SerializedName("PROCNT_KCAL") val PROCNT_KCAL: NutrientData,
-    @SerializedName("FAT_KCAL") val FAT_KCAL: NutrientData,
-    @SerializedName("CHOCDF_KCAL") val CHOCDF_KCAL: NutrientData,
+    @SerializedName("ENERC_KCAL") val ENERC_KCAL: TotalNutrientData,
+    @SerializedName("PROCNT_KCAL") val PROCNT_KCAL: TotalNutrientData,
+    @SerializedName("FAT_KCAL") val FAT_KCAL: TotalNutrientData,
+    @SerializedName("CHOCDF_KCAL") val CHOCDF_KCAL: TotalNutrientData,
 )
 
 data class NutrientData(
     val label: String,
     val quantity: Double,
+    val unit: String,
+)
+
+data class TotalNutrientData(
+    val label: String,
+    val quantity: Long,
     val unit: String,
 )

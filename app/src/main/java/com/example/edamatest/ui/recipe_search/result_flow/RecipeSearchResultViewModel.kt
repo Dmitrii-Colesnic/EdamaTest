@@ -3,22 +3,16 @@ package com.example.edamatest.ui.recipe_search.result_flow
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import com.example.domain.ResponseErrorDomain
+import com.example.domain.ResponseExceptionDomain
+import com.example.domain.ResponseSuccessDomain
 import com.example.domain.recipe_search.GetRecipeUseCase
-import com.example.domain.recipe_search.RecipeSearchResponseError
-import com.example.domain.recipe_search.RecipeSearchResponseException
-import com.example.domain.recipe_search.RecipeSearchResponseSuccess
 import com.example.domain.recipe_search.models.Hits
 import com.example.domain.recipe_search.models.Nutrient
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
 
 class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) : ViewModel() {
 
@@ -53,7 +47,7 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
             )
 
             when (response) {
-                is RecipeSearchResponseSuccess -> {
+                is ResponseSuccessDomain -> {
                     Log.d(
                         "okhttp",
                         "UIResponseSuccess"
@@ -68,7 +62,7 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
                     _loadingEvent.value = false
                     _loadingMoreItemsEvent.value = false
                 }
-                is RecipeSearchResponseError -> {
+                is ResponseErrorDomain -> {
                     _responseError.tryEmit(
                         "response code = ${response.code}"
                     )
@@ -79,7 +73,7 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
                     _loadingEvent.value = false
                     _loadingMoreItemsEvent.value = false
                 }
-                is RecipeSearchResponseException -> {
+                is ResponseExceptionDomain -> {
                     _responseException.tryEmit(
                         "exception code = ${response.e.message}"
                     )
@@ -97,56 +91,56 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
 
     fun getRecipeListNext() {
 
-            viewModelScope.launch {
-                _loadingMoreItemsEvent.value = true
-                if (nextPageURL == null) {
-                    _loadingMoreItemsEvent.value = false
-                    return@launch
-                }
-
-                val response = recipeUseCase.executeNext(
-                    url = nextPageURL!!
-                )
-
-                when (response) {
-                    is RecipeSearchResponseSuccess -> {
-                        Log.d(
-                            "okhttp",
-                            "UIResponseSuccess"
-                        )
-
-                        nextPageURL = response.data._links.next?.href
-
-                        _recipeSearchResult.tryEmit(
-                            withContext(Dispatchers.Default) {
-                                _recipeSearchResult.first() + response.data.hits.map { it.toUiModel() }
-                            }
-                        )
-                        _loadingMoreItemsEvent.value = false
-                    }
-                    is RecipeSearchResponseError -> {
-                        _responseError.tryEmit(
-                            "response code = ${response.code}"
-                        )
-                        Log.d(
-                            "okhttp",
-                            "UIResponseError: responseCode = ${response.code},  responseMessage = ${response.message}"
-                        )
-                        _loadingMoreItemsEvent.value = false
-                    }
-                    is RecipeSearchResponseException -> {
-                        _responseException.tryEmit(
-                            "exception code = ${response.e.message}"
-                        )
-                        Log.d(
-                            "okhttp",
-                            "UIResponseException - exceptionCode = ${response.e.message}"
-                        )
-                        _loadingMoreItemsEvent.value = false
-                    }
-                }
-
+        viewModelScope.launch {
+            _loadingMoreItemsEvent.value = true
+            if (nextPageURL == null) {
+                _loadingMoreItemsEvent.value = false
+                return@launch
             }
+
+            val response = recipeUseCase.executeNext(
+                url = nextPageURL!!
+            )
+
+            when (response) {
+                is ResponseSuccessDomain -> {
+                    Log.d(
+                        "okhttp",
+                        "UIResponseSuccess"
+                    )
+
+                    nextPageURL = response.data._links.next?.href
+
+                    _recipeSearchResult.tryEmit(
+                        withContext(Dispatchers.Default) {
+                            _recipeSearchResult.first() + response.data.hits.map { it.toUiModel() }
+                        }
+                    )
+                    _loadingMoreItemsEvent.value = false
+                }
+                is ResponseErrorDomain -> {
+                    _responseError.tryEmit(
+                        "response code = ${response.code}"
+                    )
+                    Log.d(
+                        "okhttp",
+                        "UIResponseError: responseCode = ${response.code},  responseMessage = ${response.message}"
+                    )
+                    _loadingMoreItemsEvent.value = false
+                }
+                is ResponseExceptionDomain -> {
+                    _responseException.tryEmit(
+                        "exception code = ${response.e.message}"
+                    )
+                    Log.d(
+                        "okhttp",
+                        "UIResponseException - exceptionCode = ${response.e.message}"
+                    )
+                    _loadingMoreItemsEvent.value = false
+                }
+            }
+
+        }
     }
 
     fun clearLoadingMoreItemsEvent() {

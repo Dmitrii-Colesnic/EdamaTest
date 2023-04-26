@@ -42,7 +42,7 @@ class NutritionAnalysisRepoImpl(
                 }
             }
         } catch (e: Throwable) {
-            Log.d("okhttp", "DomainLayer Mapping Exception - ${e.message}")
+            Log.d("okhttp", "RepoImpl Mapping Exception - ${e.message}")
             ResponseExceptionDomain(e = e)
         }
     }
@@ -58,7 +58,7 @@ private fun NutritionAnalysisResponseDataModel.toDomainModel() =
         totalNutrients = totalNutrients.toDomainModel(),
         totalDaily = totalDaily.toDomainModel(),
         ingredients = ingredients.map { it.toDomain() },
-        nutrientsKCal = nutrientsKCal.toDomainModel(),
+        nutrientsKCal = totalNutrientsKCal.toDomainModel(),
     )
 
 private fun TotalNutrientsData.toDomainModel() =
@@ -105,7 +105,7 @@ private fun ParsedData.toDomainModel() =
         quantity = quantity,
         measure = measure,
         food = food,
-        weight = weight,
+        weight = weight.toInt(),
         nutrients = nutrients.toDomainModel()
     )
 
@@ -125,6 +125,13 @@ private fun TotalNutrientsKCalData.toDomainModel() =
 private fun NutrientData.toDomain() =
     NutrientDomain(
         label = label,
-        quantity = quantity,
+        quantity = quantity.toInt(),
+        unit = unit
+    )
+
+private fun TotalNutrientData.toDomain() =
+    NutrientDomain(
+        label = label,
+        quantity = quantity.toInt(),
         unit = unit
     )
