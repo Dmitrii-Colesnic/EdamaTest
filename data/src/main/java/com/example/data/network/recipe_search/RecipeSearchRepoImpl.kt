@@ -6,10 +6,10 @@ import com.example.data.network.ResponseException
 import com.example.data.network.ResponseSuccess
 import com.example.data.network.recipe_search.model.Nutrient
 import com.example.data.network.recipe_search.model.RecipeResponseDataModel
-import com.example.domain.ResponseDomain
-import com.example.domain.ResponseErrorDomain
-import com.example.domain.ResponseExceptionDomain
-import com.example.domain.ResponseSuccessDomain
+import com.example.domain.ServerResponse
+import com.example.domain.ServerResponseError
+import com.example.domain.ServerResponseException
+import com.example.domain.ServerResponseSuccess
 import com.example.domain.recipe_search.*
 import com.example.domain.recipe_search.models.*
 
@@ -25,7 +25,7 @@ class RecipeSearchRepoImpl(
         health: List<String>,
         cuisineType: List<String>,
         nutrients: Map<String, String>
-    ): ResponseDomain<RecipeResponseDomainModel> {
+    ): ServerResponse<RecipeResponseDomainModel> {
         return try {
             val response = recipeApiRemoteSource.invokeSearchQuery(
                 type = type,
@@ -40,28 +40,28 @@ class RecipeSearchRepoImpl(
 
             response.let {
                 when (it) {
-                    is ResponseSuccess -> ResponseSuccessDomain(
-                        data = it.data.toDomainModel()
+                    is ResponseSuccess -> ServerResponseSuccess(
+                        responseData = it.data.toDomainModel()
                     )
-                    is ResponseError -> ResponseErrorDomain(
-                        code = it.code, message = it.message
+                    is ResponseError -> ServerResponseError(
+                        responseCode = it.code, responseMessage = it.message
                     )
                     is ResponseException -> {
-                        ResponseExceptionDomain(
-                            e = it.e
+                        ServerResponseException(
+                            exception = it.e
                         )
                     }
                 }
             }
         } catch (e: Throwable) {
             Log.d("okhttp", "DomainLayer Mapping Exception - ${e.message}")
-            ResponseExceptionDomain(e = e)
+            ServerResponseException(exception = e)
         }
     }
 
     override suspend fun getRecipeNext(
         url: String
-    ): ResponseDomain<RecipeResponseDomainModel> {
+    ): ServerResponse<RecipeResponseDomainModel> {
         return try {
             val response = recipeApiRemoteSource.invokeSearchQueryNext(
                 url = url
@@ -69,22 +69,22 @@ class RecipeSearchRepoImpl(
 
             response.let {
                 when (it) {
-                    is ResponseSuccess -> ResponseSuccessDomain(
-                        data = it.data.toDomainModel()
+                    is ResponseSuccess -> ServerResponseSuccess(
+                        responseData = it.data.toDomainModel()
                     )
-                    is ResponseError -> ResponseErrorDomain(
-                        code = it.code, message = it.message
+                    is ResponseError -> ServerResponseError(
+                        responseCode = it.code, responseMessage = it.message
                     )
                     is ResponseException -> {
-                        ResponseExceptionDomain(
-                            e = it.e
+                        ServerResponseException(
+                            exception = it.e
                         )
                     }
                 }
             }
         } catch (e: Throwable) {
             Log.d("okhttp", "DomainLayer Mapping Exception - ${e.message}")
-            ResponseExceptionDomain(e = e)
+            ServerResponseException(exception = e)
         }
     }
 

@@ -3,9 +3,9 @@ package com.example.edamatest.ui.recipe_search.result_flow
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.ResponseErrorDomain
-import com.example.domain.ResponseExceptionDomain
-import com.example.domain.ResponseSuccessDomain
+import com.example.domain.ServerResponseError
+import com.example.domain.ServerResponseException
+import com.example.domain.ServerResponseSuccess
 import com.example.domain.recipe_search.GetRecipeUseCase
 import com.example.domain.recipe_search.models.Hits
 import com.example.domain.recipe_search.models.Nutrient
@@ -47,39 +47,39 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
             )
 
             when (response) {
-                is ResponseSuccessDomain -> {
+                is ServerResponseSuccess -> {
                     Log.d(
                         "okhttp",
                         "UIResponseSuccess"
                     )
-                    nextPageURL = response.data._links.next?.href
+                    nextPageURL = response.responseData._links.next?.href
 
                     _recipeSearchResult.tryEmit(
                         withContext(Dispatchers.Default) {
-                            response.data.hits.map { it.toUiModel() }
+                            response.responseData.hits.map { it.toUiModel() }
                         }
                     )
                     _loadingEvent.value = false
                     _loadingMoreItemsEvent.value = false
                 }
-                is ResponseErrorDomain -> {
+                is ServerResponseError -> {
                     _responseError.tryEmit(
-                        "response code = ${response.code}"
+                        "response code = ${response.responseCode}"
                     )
                     Log.d(
                         "okhttp",
-                        "UIResponseError: responseCode = ${response.code},  responseMessage = ${response.message}"
+                        "UIResponseError: responseCode = ${response.responseCode},  responseMessage = ${response.responseMessage}"
                     )
                     _loadingEvent.value = false
                     _loadingMoreItemsEvent.value = false
                 }
-                is ResponseExceptionDomain -> {
+                is ServerResponseException -> {
                     _responseException.tryEmit(
-                        "exception code = ${response.e.message}"
+                        "exception code = ${response.exception.message}"
                     )
                     Log.d(
                         "okhttp",
-                        "UIResponseException - exceptionCode = ${response.e.message}"
+                        "UIResponseException - exceptionCode = ${response.exception.message}"
                     )
                     _loadingEvent.value = false
                     _loadingMoreItemsEvent.value = false
@@ -103,38 +103,38 @@ class RecipeSearchResultViewModel(private val recipeUseCase: GetRecipeUseCase) :
             )
 
             when (response) {
-                is ResponseSuccessDomain -> {
+                is ServerResponseSuccess -> {
                     Log.d(
                         "okhttp",
                         "UIResponseSuccess"
                     )
 
-                    nextPageURL = response.data._links.next?.href
+                    nextPageURL = response.responseData._links.next?.href
 
                     _recipeSearchResult.tryEmit(
                         withContext(Dispatchers.Default) {
-                            _recipeSearchResult.first() + response.data.hits.map { it.toUiModel() }
+                            _recipeSearchResult.first() + response.responseData.hits.map { it.toUiModel() }
                         }
                     )
                     _loadingMoreItemsEvent.value = false
                 }
-                is ResponseErrorDomain -> {
+                is ServerResponseError -> {
                     _responseError.tryEmit(
-                        "response code = ${response.code}"
+                        "response code = ${response.responseCode}"
                     )
                     Log.d(
                         "okhttp",
-                        "UIResponseError: responseCode = ${response.code},  responseMessage = ${response.message}"
+                        "UIResponseError: responseCode = ${response.responseCode},  responseMessage = ${response.responseMessage}"
                     )
                     _loadingMoreItemsEvent.value = false
                 }
-                is ResponseExceptionDomain -> {
+                is ServerResponseException -> {
                     _responseException.tryEmit(
-                        "exception code = ${response.e.message}"
+                        "exception code = ${response.exception.message}"
                     )
                     Log.d(
                         "okhttp",
-                        "UIResponseException - exceptionCode = ${response.e.message}"
+                        "UIResponseException - exceptionCode = ${response.exception.message}"
                     )
                     _loadingMoreItemsEvent.value = false
                 }

@@ -1,6 +1,6 @@
 package com.example.domain.recipe_search
 
-import com.example.domain.ResponseDomain
+import com.example.domain.ServerResponse
 import com.example.domain.recipe_search.models.RecipeResponseDomainModel
 
 private const val APPLICATION_ID = "0bcdf660"
@@ -14,7 +14,7 @@ class GetRecipeUseCase(private val recipeSearchRepo: RecipeSearchRepo) {
         health: List<String> = emptyList(),
         cuisineType: List<String> = emptyList(),
         nutrients: Map<String, String> = emptyMap()
-    ): ResponseDomain<RecipeResponseDomainModel> {
+    ): ServerResponse<RecipeResponseDomainModel> {
         return recipeSearchRepo.getRecipe(
             type = TYPE,
             appId = APPLICATION_ID,
@@ -28,7 +28,7 @@ class GetRecipeUseCase(private val recipeSearchRepo: RecipeSearchRepo) {
     }
     suspend fun executeNext(
         url: String
-    ): ResponseDomain<RecipeResponseDomainModel> {
+    ): ServerResponse<RecipeResponseDomainModel> {
         return recipeSearchRepo.getRecipeNext(
             url = url
         )

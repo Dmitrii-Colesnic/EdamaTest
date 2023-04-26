@@ -1,6 +1,6 @@
 package com.example.domain.nutrition_analysis
 
-import com.example.domain.ResponseDomain
+import com.example.domain.ServerResponse
 import com.example.domain.nutrition_analysis.model.NutritionAnalysisRequestDomainModel
 import com.example.domain.nutrition_analysis.model.NutritionAnalysisResponseDomainModel
 
@@ -10,6 +10,6 @@ interface NutritionAnalysisRepo {
         appId: String,
         appKey: String,
         bodyModel: NutritionAnalysisRequestDomainModel
-    ) : ResponseDomain<NutritionAnalysisResponseDomainModel>
+    ) : ServerResponse<NutritionAnalysisResponseDomainModel>
 
 }

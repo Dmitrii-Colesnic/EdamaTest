@@ -5,10 +5,10 @@ import com.example.data.network.ResponseError
 import com.example.data.network.ResponseException
 import com.example.data.network.ResponseSuccess
 import com.example.data.network.nutrition_analysis.model.*
-import com.example.domain.ResponseDomain
-import com.example.domain.ResponseErrorDomain
-import com.example.domain.ResponseExceptionDomain
-import com.example.domain.ResponseSuccessDomain
+import com.example.domain.ServerResponse
+import com.example.domain.ServerResponseError
+import com.example.domain.ServerResponseException
+import com.example.domain.ServerResponseSuccess
 import com.example.domain.nutrition_analysis.NutritionAnalysisRepo
 import com.example.domain.nutrition_analysis.model.*
 
@@ -20,7 +20,7 @@ class NutritionAnalysisRepoImpl(
         appId: String,
         appKey: String,
         bodyModel: NutritionAnalysisRequestDomainModel
-    ): ResponseDomain<NutritionAnalysisResponseDomainModel> {
+    ): ServerResponse<NutritionAnalysisResponseDomainModel> {
         return try {
             val response = nutritionAnalysisApiRemoteSource.invokeGetAnalysis(
                 appId = appId,
@@ -30,20 +30,20 @@ class NutritionAnalysisRepoImpl(
 
             response.let {
                 when (it) {
-                    is ResponseSuccess -> ResponseSuccessDomain(
-                        data = it.data.toDomainModel()
+                    is ResponseSuccess -> ServerResponseSuccess(
+                        responseData = it.data.toDomainModel()
                     )
-                    is ResponseError -> ResponseErrorDomain(
-                        code = it.code, message = it.message
+                    is ResponseError -> ServerResponseError(
+                        responseCode = it.code, responseMessage = it.message
                     )
-                    is ResponseException -> ResponseExceptionDomain(
-                        e = it.e
+                    is ResponseException -> ServerResponseException(
+                        exception = it.e
                     )
                 }
             }
         } catch (e: Throwable) {
             Log.d("okhttp", "RepoImpl Mapping Exception - ${e.message}")
-            ResponseExceptionDomain(e = e)
+            ServerResponseException(exception = e)
         }
     }
 }

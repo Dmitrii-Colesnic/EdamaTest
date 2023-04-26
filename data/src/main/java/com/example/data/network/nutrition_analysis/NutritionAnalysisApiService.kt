@@ -1,5 +1,6 @@
 package com.example.data.network.nutrition_analysis
 
+import android.util.Log
 import com.example.data.network.*
 import com.example.data.network.nutrition_analysis.model.NutritionAnalysisRequestDataModel
 import com.example.data.network.nutrition_analysis.model.NutritionAnalysisResponseDataModel
@@ -22,11 +23,23 @@ class NutritionAnalysisApiRemoteSource(private val nutritionAnalysisApiService: 
         appId: String,
         appKey: String,
         bodyModel: NutritionAnalysisRequestDataModel
-    ): ApiResponse<NutritionAnalysisResponseDataModel> = handleApi {
-        nutritionAnalysisApiService.getAnalysis(
-            appId = appId,
-            appKey = appKey,
-            bodyModel = bodyModel
-        )
+    ): ApiResponse<NutritionAnalysisResponseDataModel> {
+        return try {
+            nutritionAnalysisApiService.getAnalysis(
+                appId = appId,
+                appKey = appKey,
+                bodyModel = bodyModel
+            ).let {
+                val body = it.body()
+                if (it.isSuccessful && body != null) {
+                    ResponseSuccess(data = body)
+                } else {
+                    ResponseError(code = it.code(), message = it.message())
+                }
+            }
+        } catch (e: Throwable) {
+            Log.d("okhttp", "handleApi Exception - ${e.message}")
+            ResponseException(e)
+        }
     }
 }

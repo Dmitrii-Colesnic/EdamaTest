@@ -1,6 +1,6 @@
 package com.example.domain.recipe_search
 
-import com.example.domain.ResponseDomain
+import com.example.domain.ServerResponse
 import com.example.domain.recipe_search.models.RecipeResponseDomainModel
 
 interface RecipeSearchRepo {
@@ -13,9 +13,9 @@ interface RecipeSearchRepo {
         health: List<String>,
         cuisineType: List<String>,
         nutrients: Map<String, String>
-    ): ResponseDomain<RecipeResponseDomainModel>
+    ): ServerResponse<RecipeResponseDomainModel>
 
     suspend fun getRecipeNext(
         url: String
-    ): ResponseDomain<RecipeResponseDomainModel>
+    ): ServerResponse<RecipeResponseDomainModel>
 }

@@ -35,4 +35,645 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <!--                                        tools:listitem="@layout/nutrition_analysis_ingredient_item"/>-->
+            <!--                app:layout_constraintTop_toTopOf="parent"/>-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:text="Nutrition Facts"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/gray"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_amountPerSaving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Amount Per Serving"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_1" />
+
+                <TextView
+                    android:id="@+id/tv_calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Calories"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_amountPerSaving" />
+
+                <TextView
+                    android:id="@+id/tv_calories_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1813"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_calories" />
+
+                <View
+                    android:id="@+id/view_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_calories" />
+
+                <TextView
+                    android:id="@+id/tv_daily_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="% Daily Value*"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_2" />
+
+                <View
+                    android:id="@+id/view_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_daily_value" />
+
+                <TextView
+                    android:id="@+id/tv_totalFat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Total Fat"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_3" />
+
+                <TextView
+                    android:id="@+id/tv_totalFat_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="19.3 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_totalFat"
+                    app:layout_constraintTop_toTopOf="@id/tv_totalFat" />
+
+                <TextView
+                    android:id="@+id/tv_totalFat_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="50 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_totalFat" />
+
+                <View
+                    android:id="@+id/view_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_totalFat" />
+
+                <TextView
+                    android:id="@+id/tv_saturatedFat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Saturated Fat"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/view_4"
+                    app:layout_constraintTop_toBottomOf="@id/view_4" />
+
+                <TextView
+                    android:id="@+id/tv_saturatedFat_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="2.2 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_saturatedFat"
+                    app:layout_constraintTop_toTopOf="@id/tv_saturatedFat" />
+
+                <TextView
+                    android:id="@+id/tv_saturatedFat_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="11 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_saturatedFat" />
+
+                <View
+                    android:id="@+id/view_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_saturatedFat" />
+
+                <TextView
+                    android:id="@+id/tv_transFat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Trans Fat"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/view_5"
+                    app:layout_constraintTop_toBottomOf="@id/view_5" />
+
+                <TextView
+                    android:id="@+id/tv_transFat_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="2.2 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_transFat"
+                    app:layout_constraintTop_toTopOf="@id/tv_transFat" />
+
+                <View
+                    android:id="@+id/view_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_transFat" />
+
+                <TextView
+                    android:id="@+id/tv_cholesterol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Cholesterol"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_6" />
+
+                <TextView
+                    android:id="@+id/tv_cholesterol_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="0 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_cholesterol"
+                    app:layout_constraintTop_toTopOf="@id/tv_cholesterol" />
+
+                <TextView
+                    android:id="@+id/tv_cholesterol_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="0 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_cholesterol" />
+
+                <View
+                    android:id="@+id/view_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cholesterol" />
+
+                <TextView
+                    android:id="@+id/tv_sodium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Cholesterol"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_7" />
+
+                <TextView
+                    android:id="@+id/tv_sodium_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="113.1 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_sodium"
+                    app:layout_constraintTop_toTopOf="@id/tv_sodium" />
+
+                <TextView
+                    android:id="@+id/tv_sodium_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="5 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_sodium" />
+
+                <View
+                    android:id="@+id/view_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sodium" />
+
+                <TextView
+                    android:id="@+id/tv_carbohydrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Total Carbohydrate"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_8" />
+
+                <TextView
+                    android:id="@+id/tv_carbohydrate_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="339.2 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_carbohydrate"
+                    app:layout_constraintTop_toTopOf="@id/tv_carbohydrate" />
+
+                <TextView
+                    android:id="@+id/tv_carbohydrate_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="113 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_carbohydrate" />
+
+                <View
+                    android:id="@+id/view_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_carbohydrate" />
+
+                <TextView
+                    android:id="@+id/tv_dietaryFiber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Dietary Fiber"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/view_9"
+                    app:layout_constraintTop_toBottomOf="@id/view_9" />
+
+                <TextView
+                    android:id="@+id/tv_dietaryFiber_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="37 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_dietaryFiber"
+                    app:layout_constraintTop_toTopOf="@id/tv_dietaryFiber" />
+
+                <TextView
+                    android:id="@+id/tv_dietaryFiber_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="149 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_dietaryFiber" />
+
+                <View
+                    android:id="@+id/view_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_dietaryFiber" />
+
+                <TextView
+                    android:id="@+id/tv_totalSugar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Total Sugar"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/view_10"
+                    app:layout_constraintTop_toBottomOf="@id/view_10" />
+
+                <TextView
+                    android:id="@+id/tv_totalSugar_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="33.6 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_totalSugar"
+                    app:layout_constraintTop_toTopOf="@id/tv_totalSugar" />
+
+                <View
+                    android:id="@+id/view_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_totalSugar" />
+
+                <TextView
+                    android:id="@+id/tv_protein"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Protein"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_11" />
+
+                <TextView
+                    android:id="@+id/tv_protein_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="74.9 g"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_protein"
+                    app:layout_constraintTop_toTopOf="@id/tv_protein" />
+
+                <TextView
+                    android:id="@+id/tv_protein_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="150 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_protein" />
+
+                <View
+                    android:id="@+id/view_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_protein" />
+
+                <TextView
+                    android:id="@+id/tv_vitaminD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Vitamin D"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_12" />
+
+                <TextView
+                    android:id="@+id/tv_vitaminD_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="0 ug"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_vitaminD"
+                    app:layout_constraintTop_toTopOf="@id/tv_vitaminD" />
+
+                <TextView
+                    android:id="@+id/tv_vitaminD_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="0 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_vitaminD" />
+
+                <View
+                    android:id="@+id/view_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_vitaminD" />
+
+                <TextView
+                    android:id="@+id/tv_calcium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Calcium"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_13" />
+
+                <TextView
+                    android:id="@+id/tv_calcium_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="421.6 mg"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_calcium"
+                    app:layout_constraintTop_toTopOf="@id/tv_calcium" />
+
+                <TextView
+                    android:id="@+id/tv_calcium_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="42 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_calcium" />
+
+                <View
+                    android:id="@+id/view_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_calcium" />
+
+                <TextView
+                    android:id="@+id/tv_iron"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Iron"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_14" />
+
+                <TextView
+                    android:id="@+id/tv_iron_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="16 mg"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_iron"
+                    app:layout_constraintTop_toTopOf="@id/tv_iron" />
+
+                <TextView
+                    android:id="@+id/tv_iron_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="89 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_iron" />
+
+                <View
+                    android:id="@+id/view_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/gray_50"
+                    app:layout_constraintTop_toBottomOf="@id/tv_iron" />
+
+                <TextView
+                    android:id="@+id/tv_potassium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Potassium"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_15" />
+
+                <TextView
+                    android:id="@+id/tv_potassium_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="2777.4 mg"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_potassium"
+                    app:layout_constraintTop_toTopOf="@id/tv_potassium" />
+
+                <TextView
+                    android:id="@+id/tv_potassium_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="59 %"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_potassium" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/loading_view"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
