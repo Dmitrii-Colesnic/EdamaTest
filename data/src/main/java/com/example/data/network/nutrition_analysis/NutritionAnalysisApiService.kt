@@ -38,7 +38,7 @@ class NutritionAnalysisApiRemoteSource(private val nutritionAnalysisApiService: 
                 }
             }
         } catch (e: Throwable) {
-            Log.d("okhttp", "handleApi Exception - ${e.message}")
+            Log.d("okhttp", "Handle api Exception - ${e.message}")
             ResponseException(e)
         }
     }

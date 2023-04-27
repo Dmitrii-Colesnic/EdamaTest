@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.edamatest.databinding.ActivityNutritionAnalysisResultBinding
+import com.example.edamatest.ui.StateFlowStatus
 import com.example.edamatest.ui.launchAndCollectWithLifecycle
+import com.example.edamatest.ui.nutrition_analysis.model.NutritionAnalysisModel
 import com.example.edamatest.ui.showErrorAlertDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,8 +43,18 @@ class NutritionAnalysisResultActivity : AppCompatActivity() {
     }
 
     private fun observeViewModelsFlow() {
+
+        viewModel.nutritionAnalysis.launchAndCollectWithLifecycle(lifecycleOwner = this) {
+            when (it) {
+                is StateFlowStatus.Active -> {
+                    setNutritionFacts(it.model)
+                }
+                is StateFlowStatus.Empty -> {}
+            }
+        }
+
         viewModel.responseError.launchAndCollectWithLifecycle(lifecycleOwner = this) {
-            showErrorAlertDialog("${it.responseMessage } \n\n Response code = ${it.responseCode}") { finish() }
+            showErrorAlertDialog("${it.responseMessage} \n\n Response code = ${it.responseCode}") { finish() }
         }
         viewModel.responseException.launchAndCollectWithLifecycle(lifecycleOwner = this) {
             showErrorAlertDialog("Request exception \n ${it.exceptionMessage}") { finish() }
@@ -54,5 +66,9 @@ class NutritionAnalysisResultActivity : AppCompatActivity() {
                 binding.loadingView.visibility = View.GONE
             }
         }
+    }
+
+    private fun setNutritionFacts(model: NutritionAnalysisModel) {
+
     }
 }
