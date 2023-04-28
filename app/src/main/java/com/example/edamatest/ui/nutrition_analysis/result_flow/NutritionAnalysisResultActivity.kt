@@ -144,9 +144,9 @@ class NutritionAnalysisResultActivity : AppCompatActivity() {
             "${model.totalNutrients.FE.quantity} ${model.totalNutrients.FE.unit}"
         binding.tvIronPercent.text = "${model.totalDaily.FE.quantity} ${model.totalDaily.FE.unit}"
         //Potassium
-        binding.tvProteinWeight.text =
+        binding.tvPotassiumWeight.text =
             "${model.totalNutrients.K.quantity} ${model.totalNutrients.K.unit}"
-        binding.tvProteinPercent.text = "${model.totalDaily.K.quantity} ${model.totalDaily.K.unit}"
+        binding.tvPotassiumPercent.text = "${model.totalDaily.K.quantity} ${model.totalDaily.K.unit}"
 
     }
 }
