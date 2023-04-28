@@ -73,26 +73,6 @@ data class TotalDailyModel(
     val K: NutrientModel,
 )
 
-data class IngredientModel(
-    val text: String,
-    val parsed: List<ParsedModel>
-)
-
-data class ParsedModel(
-    val quantity: Long,
-    val measure: String,
-    val food: String,
-    val weight: Int,
-    val nutrients: IngredientNutrientsModel,
-)
-
-data class IngredientNutrientsModel(
-    val ENERC_KCAL: NutrientModel,
-    val FAT: NutrientModel,
-    val PROCNT: NutrientModel,
-    val CHOCDF: NutrientModel,
-)
-
 data class NutrientModel(
     val label: String,
     val quantity: Int,

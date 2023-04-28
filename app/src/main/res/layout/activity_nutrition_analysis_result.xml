@@ -48,26 +48,35 @@
             android:paddingBottom="100dp">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/nutrition_analysis_ingredient_item" />
             <!--                app:layout_constraintTop_toTopOf="parent"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:text="Nutrition Facts"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_nutritionFacts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_nutritionFacts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:text="Nutrition Facts"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/view_1"
@@ -75,7 +84,7 @@
                     android:layout_height="10dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/gray"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_nutritionFacts" />
 
                 <TextView
                     android:id="@+id/tv_amountPerSaving"
@@ -126,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:text="% Daily Value*"
                     android:textColor="@color/black"
-                    android:textSize="10sp"
+                    android:textSize="11sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_2" />
@@ -304,7 +313,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Cholesterol"
+                    android:text="Sodium"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"

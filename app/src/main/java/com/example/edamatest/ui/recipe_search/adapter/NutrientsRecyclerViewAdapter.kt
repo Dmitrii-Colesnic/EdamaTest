@@ -14,20 +14,7 @@ import com.example.edamatest.ui.recipe_search.toDisplayFormatRange
 class NutrientsRecyclerViewAdapter(
     private val onItemClick: (Int, NutrientsModel) -> Unit,
     private val onItemClearClick: (Int) -> Unit,
-) : RecyclerView.Adapter<NutrientsRecyclerViewAdapter.ViewHolder>() {
-
-    inner class ViewHolder(val binding: ChipMacronutrientsBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    private val differCallback = object : DiffUtil.ItemCallback<NutrientsModel>() {
-        override fun areItemsTheSame(oldItem: NutrientsModel, newItem: NutrientsModel): Boolean {
-            return oldItem.serverName == newItem.serverName
-        }
-
-        override fun areContentsTheSame(oldItem: NutrientsModel, newItem: NutrientsModel): Boolean {
-            return oldItem == newItem
-        }
-    }
+) : RecyclerView.Adapter<ViewHolder>() {
 
     val differ = AsyncListDiffer(this, differCallback)
 
@@ -82,4 +69,17 @@ class NutrientsRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int = differ.currentList.size
+}
+
+class ViewHolder(val binding: ChipMacronutrientsBinding) :
+    RecyclerView.ViewHolder(binding.root)
+
+private val differCallback = object : DiffUtil.ItemCallback<NutrientsModel>() {
+    override fun areItemsTheSame(oldItem: NutrientsModel, newItem: NutrientsModel): Boolean {
+        return oldItem.serverName == newItem.serverName
+    }
+
+    override fun areContentsTheSame(oldItem: NutrientsModel, newItem: NutrientsModel): Boolean {
+        return oldItem == newItem
+    }
 }

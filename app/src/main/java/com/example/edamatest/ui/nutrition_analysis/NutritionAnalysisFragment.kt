@@ -1,15 +1,22 @@
 package com.example.edamatest.ui.nutrition_analysis
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.edamatest.R
 import com.example.edamatest.databinding.FragmentNutritionAnalysisBinding
 import com.example.edamatest.openActivity
 import com.example.edamatest.ui.launchAndCollectWithLifecycle
 import com.example.edamatest.ui.nutrition_analysis.result_flow.NUTRITION_ANALYSIS_LIST_KEY
 import com.example.edamatest.ui.nutrition_analysis.result_flow.NutritionAnalysisResultActivity
+import com.example.edamatest.ui.showErrorAlertDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NutritionAnalysisFragment : Fragment() {
@@ -66,34 +73,18 @@ class NutritionAnalysisFragment : Fragment() {
         }
     }
 
-//    private fun addButtonClickability(clickability: Boolean) {
-//        if (clickability) {
-//            binding.fabAdd.apply {
-//                backgroundTintList =
-//                    ColorStateList.valueOf(
-//                        ContextCompat.getColor(
-//                            requireActivity(),
-//                            R.color.yellow_dark_dark_custom
-//                        )
-//                    )
-//                isClickable = true
-//            }
-//        } else {
-//            binding.fabAdd.apply {
-//                backgroundTintList =
-//                    ColorStateList.valueOf(
-//                        ContextCompat.getColor(
-//                            requireActivity(),
-//                            R.color.gray
-//                        )
-//                    )
-//                isClickable = false
-//            }
-//        }
-//    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+}
+
+private fun Context.showExampleAlert() {
+    val builder = AlertDialog.Builder(this)
+    val customView = LayoutInflater.from(this).inflate(R.layout.nutrition_analysis_example_dialog, null)
+    builder.setView(customView)
+
+    val alertDialog: AlertDialog = builder.create()
+    alertDialog.setCancelable(true)
+    alertDialog.show()
 }

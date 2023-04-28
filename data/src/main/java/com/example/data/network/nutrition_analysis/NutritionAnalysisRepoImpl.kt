@@ -105,6 +105,7 @@ private fun ParsedData.toDomainModel() =
         quantity = quantity,
         measure = measure,
         food = food,
+        foodId = foodId,
         weight = weight.toInt(),
         nutrients = nutrients.toDomainModel()
     )

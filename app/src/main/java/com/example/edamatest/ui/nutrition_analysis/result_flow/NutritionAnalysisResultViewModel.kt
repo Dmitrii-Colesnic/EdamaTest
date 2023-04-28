@@ -25,7 +25,8 @@ class NutritionAnalysisResultViewModel(
     private val _ingredients = MutableStateFlow(emptyList<IngredientModel>())
     val ingredients = _ingredients.asStateFlow()
 
-    private val _nutritionAnalysis = MutableStateFlow<StateFlowStatus<NutritionAnalysisModel>>(StateFlowStatus.Empty)
+    private val _nutritionAnalysis =
+        MutableStateFlow<StateFlowStatus<NutritionAnalysisModel>>(StateFlowStatus.Empty)
     val nutritionAnalysis = _nutritionAnalysis.asStateFlow()
 
     private val _responseError = Channel<ServerResponseErrorModel>()
@@ -46,10 +47,10 @@ class NutritionAnalysisResultViewModel(
                     is ServerResponseSuccess -> {
                         Log.d("okhttp", "UIResponseSuccess")
 
-                        _ingredients.value =
-                            it.responseData.ingredients.map { it -> it.toPresenterModel() }
+                        _ingredients.value = it.responseData.ingredients.toPresenterModel()
 
-                        _nutritionAnalysis.value = StateFlowStatus.Active(it.responseData.toPresenterModel())
+                        _nutritionAnalysis.value =
+                            StateFlowStatus.Active(it.responseData.toPresenterModel())
 
                         _loadingEvent.value = false
                     }
@@ -142,17 +143,22 @@ private fun TotalDailyDomain.toPresenterModel() =
         K = K.toPresenterModel(),
     )
 
-private fun IngredientDomain.toPresenterModel() =
-    IngredientModel(
-        text = text,
-        parsed = parsed.map { it.toPresenterModel() }
-    )
+private fun List<IngredientDomain>.toPresenterModel(): List<IngredientModel> {
+    val ingredientModelList = mutableListOf<IngredientModel>()
+
+    for (itemIngredient in this)
+        for (item in itemIngredient.parsed)
+            ingredientModelList.add(item.toPresenterModel())
+
+    return ingredientModelList
+}
 
 private fun ParsedDomain.toPresenterModel() =
-    ParsedModel(
+    IngredientModel(
         quantity = quantity,
         measure = measure,
         food = food,
+        foodId = foodId,
         weight = weight,
         nutrients = nutrients.toPresenterModel()
     )

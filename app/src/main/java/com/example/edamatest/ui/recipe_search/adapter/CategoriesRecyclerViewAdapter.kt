@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edamatest.R
 import com.example.edamatest.databinding.ChipMacronutrientsBinding
 
-class DietsRecyclerViewAdapter(val onItemClick: (Int, Boolean) -> Unit) : RecyclerView.Adapter<DietsRecyclerViewAdapter.ViewHolder>() {
+class DietsRecyclerViewAdapter(val onItemClick: (Int, Boolean) -> Unit) :
+    RecyclerView.Adapter<DietsRecyclerViewAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ChipMacronutrientsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -18,7 +19,10 @@ class DietsRecyclerViewAdapter(val onItemClick: (Int, Boolean) -> Unit) : Recycl
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: CategoriesModel, newItem: CategoriesModel): Boolean {
+        override fun areContentsTheSame(
+            oldItem: CategoriesModel,
+            newItem: CategoriesModel
+        ): Boolean {
             return oldItem == newItem
         }
     }

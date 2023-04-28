@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.4" />
+                app:layout_constraintGuide_percent="0.5" />
 
             <TextView
                 android:id="@+id/textView_calories"
@@ -56,14 +56,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.7" />
+                app:layout_constraintGuide_percent="0.8" />
 
             <TextView
                 android:id="@+id/textView_weight"
                 android:layout_marginHorizontal="10dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="1083 g"
+                android:text="10083 g"
                 android:textSize="15sp"
 
                 app:layout_constraintTop_toTopOf="parent"

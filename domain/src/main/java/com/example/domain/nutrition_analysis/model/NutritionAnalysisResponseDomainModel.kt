@@ -83,6 +83,7 @@ data class ParsedDomain(
     val quantity: Long,
     val measure: String,
     val food: String,
+    val foodId: String,
     val weight: Int,
     val nutrients: IngredientNutrientsDomain,
 )
